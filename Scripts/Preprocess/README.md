@@ -10,6 +10,7 @@ Run in order:
 | 1 | `01_load_and_inspect.ipynb` | Load a subject, shapes / sampling rates / labels, raw plots | `fb_code/feature_extraction.py` → `SubjectData` |
 | 2 | `02_filter_signals.ipynb` | Per-sensor filtering with before/after plots | `fb_code/feature_extraction.py` → `compute_features`; `fb_code/utils.py` |
 | 3 | `03_label_and_save.ipynb` | Binary relabel, drop excluded samples, save all subjects | `fb_code/feature_extraction.py` → `label_dict` |
+| 4 | `04_windowing.ipynb` | Fixed sliding window segmentation (60s general, 5s ACC, 0.25s shift) | `fb_code/feature_extraction.py` → `get_samples` |
 
 Helper module: `wesad_preprocess.py`.
 
