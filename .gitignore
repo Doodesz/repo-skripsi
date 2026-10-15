@@ -8,3 +8,12 @@ __pycache__/
 
 ## Generated preprocessed data
 /data/preprocessed
+
+## Obsidian workspace state (keep vault notes and shared settings tracked)
+.obsidian
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/cache/
+/.opencode
+/copilot
+/.copilot
