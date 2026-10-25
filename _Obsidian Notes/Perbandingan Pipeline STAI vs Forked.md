@@ -47,5 +47,5 @@ Catatan analisis perbedaan mendasar arsitektur ekstraksi fitur, pelabelan, segme
 - Katalog 118 fitur fisiologis: [[Katalog Fitur Fisiologis]]
 - Catatan pipeline STAI: [[Pipeline STAI User (v2_stai)]]
 - Catatan pipeline protokol: [[Pipeline Forked (WESAD Protocol)]]
-- Catatan temuan metodologis: [[Development Findings]]
+- Catatan temuan metodologis: [[Development Findings 1]]
 - Peta konsep utama: [[MOC - Skripsi Repository]]

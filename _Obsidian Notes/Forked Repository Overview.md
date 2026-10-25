@@ -69,4 +69,4 @@ _forked/
 - Pemfilteran sinyal: [[Pra-Pemrosesan Sinyal & Filtering]]
 - Sinkronisasi data multimodal: [[Wrangling & Sinkronisasi Multimodal]]
 - Dataset WESAD: [[Dataset WESAD]]
-- Catatan komparasi: [[Development Findings]]
+- Catatan komparasi: [[Development Findings 1]]

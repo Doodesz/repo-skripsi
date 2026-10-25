@@ -62,5 +62,5 @@ aliases:
 - Peta konsep: [[MOC - Skripsi Repository]]
 - Pipeline STAI: [[Pipeline STAI User (v2_stai)]]
 - Pipeline Protokol: [[Pipeline Forked (WESAD Protocol)]]
-- Catatan Temuan & Analisis: [[Development Findings]]
+- Catatan Temuan & Analisis: [[Development Findings 1]]
 - Hasil Evaluasi Model: [[Machine Learning Models & Evaluation]]

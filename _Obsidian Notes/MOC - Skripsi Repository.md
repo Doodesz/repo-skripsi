@@ -22,7 +22,7 @@ Repositori ini mencakup implementasi end-to-end mulai dari data mentah multisens
 - [[Rencana Riset & Pembangunan Sistem Deteksi Anxiety]] — Ringkasan komprehensif rencana riset, target pembangunan sistem, 5 skenario komparasi modalitas, dan alur eksperimen proposal.
 - [[Proposal Skripsi Overview]] — Ringkasan usulan riset, rumusan masalah, latar belakang kecemasan (anxiety) vs stres, dan alur bab 3.
 - [[Dataset WESAD]] — Dokumentasi dataset WESAD (15 subjek, sensor dada RespiBAN 700 Hz, sensor pergelangan Empatica E4, protokol lab, dan instrumen STAI).
-- [[Development Findings]] — Catatan komparasi paradigma pelabelan, analisis kebocoran data (*data leakage*), justifikasi ambang batas heuristik skor STAI, dan pertimbangan klinis.
+- [[Development Findings 1]] — Catatan komparasi paradigma pelabelan, analisis kebocoran data (*data leakage*), justifikasi ambang batas heuristik skor STAI, dan pertimbangan klinis.
 
 ### 2. Pipeline Pemrosesan & Komparasi Metodologis
 - [[Pipeline STAI User (v2_stai)]] — Konsep pipeline State Anxiety berbasis delta skor kuesioner mandiri STAI terhadap baseline individu ($\Delta \ge 0{,}2$), window 60s step 12s.

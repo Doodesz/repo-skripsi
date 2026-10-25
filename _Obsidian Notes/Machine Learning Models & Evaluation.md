@@ -82,5 +82,5 @@ Models/
 - Peta konsep: [[MOC - Skripsi Repository]]
 - Script STAI: [[Script v2_stai]]
 - Script Protokol: [[Script v1]]
-- Catatan komparasi metodologis: [[Development Findings]]
+- Catatan komparasi metodologis: [[Development Findings 1]]
 - Proposal skripsi: [[Proposal Skripsi Overview]]

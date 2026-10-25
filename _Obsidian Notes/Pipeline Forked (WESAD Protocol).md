@@ -47,5 +47,5 @@ Pipeline `_forked` merupakan pendekatan pemrosesan data berbasis anotasi protoko
 ---
 
 ## 4. Tautan Terkait
-- Catatan komparasi utama: [[Development Findings]]
+- Catatan komparasi utama: [[Development Findings 1]]
 - Alternatif pipeline berbasis kuesioner: [[Pipeline STAI User (v2_stai)]]

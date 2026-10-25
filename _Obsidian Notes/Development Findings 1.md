@@ -16,11 +16,11 @@ tags:
 
 Perbedaan mendasar antara kedua pipeline terletak pada **makna semantik dari label target**:
 
-| Aspek | [[Pipeline Forked (WESAD Protocol)\|Pipeline _forked]] | [[Pipeline STAI User (v2_stai)\|Pipeline User (v2_stai.ipynb)]] |
-| :--- | :--- | :--- |
-| **Pertanyaan Inti** | *“Jendela ini berasal dari kondisi protokol eksperimen yang mana?”* | *“Apakah rata-rata STAI laporan mandiri peserta meningkat $\ge 0{,}2$ poin dari baseline-nya?”* |
-| **Dasar Pelabelan** | Anotasi kondisi protokol WESAD (baseline, TSST/stres, amusement). | Respons kuesioner STAI peserta per kondisi terhadap rata-rata kondisi Base. |
-| **Tingkat Anotasi** | Eksperimental / stimulus terinduksi protokol. | Subjektif / *self-report* berbasis ambang operasional individu. |
+| Aspek               | [[Pipeline Forked (WESAD Protocol)\|Pipeline _forked]]            | [[Pipeline STAI User (v2_stai)\|Pipeline User (v2_stai.ipynb)]]                             |
+| :------------------ | :---------------------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+| **Pertanyaan Inti** | Jendela ini berasal dari kondisi protokol eksperimen yang mana?   | Apakah rata-rata STAI laporan mandiri peserta meningkat $\ge 0{,}2$ poin dari baseline-nya? |
+| **Dasar Pelabelan** | Anotasi kondisi protokol WESAD (baseline, TSST/stres, amusement). | Respons kuesioner STAI peserta per kondisi terhadap rata-rata kondisi Base.                 |
+| **Tingkat Anotasi** | Eksperimental / stimulus terinduksi protokol.                     | Subjektif / *self-report* berbasis ambang operasional individu.                             |
 
 ---
 
@@ -56,7 +56,7 @@ Perbedaan mendasar antara kedua pipeline terletak pada **makna semantik dari lab
 - TSST dirancang sebagai pemicu stres, tetapi tidak boleh diasumsikan meningkatkan skor STAI setiap peserta. Peserta dapat berbeda dalam respons subjektif; karena itu, tidak adanya peningkatan pada sebagian peserta merupakan hasil yang perlu dianalisis, bukan bukti otomatis bahwa parser atau metode label salah.
 - Pisahkan dua pertanyaan penelitian: **(1)** apakah STAI berubah dari Base ke TSST pada tingkat kelompok/peserta, dan **(2)** apakah fitur wearable dapat memprediksi label STAI operasional. Label protokol TSST dan label perubahan STAI mewakili target berbeda.
 - Pendekatan STAI-baseline-relative dapat dilanjutkan jika targetnya dinyatakan sebagai **peningkatan STAI yang dilaporkan sendiri relatif terhadap baseline**, bukan diagnosis kecemasan atau respons TSST yang pasti.
-- Sebelum melatih ulang model, periksa perubahan Base–TSST per peserta dan distribusi perubahan; laporkan ukuran efek/ketidakpastian dan proporsi peserta yang naik, tetap, atau turun. Lakukan analisis sensitivitas terhadap ambang `0.2` dan verifikasi aturan skoring STAI yang berlaku.
+- Sebelum melatih ulang model, periksa perubahan Baseâ€“TSST per peserta dan distribusi perubahan; laporkan ukuran efek/ketidakpastian dan proporsi peserta yang naik, tetap, atau turun. Lakukan analisis sensitivitas terhadap ambang `0.2` dan verifikasi aturan skoring STAI yang berlaku.
 - Untuk deteksi di smartwatch dunia nyata, kumpulkan sinyal dan *self-report* yang tersinkronisasi pada waktu yang sesuai. STAI per kondisi memberi label tingkat kondisi, bukan *ground truth* kontinu per jendela; pertimbangkan target fisiologis/stres dan kecemasan subjektif secara eksplisit dan terpisah.
 - Evaluasi model dengan pemisahan peserta (tanpa peserta yang sama di data latih dan uji), lalu validasi dalam konteks realistis. Ukur juga *false alarms*, kejadian terlewat, dan variasi antar-peserta, bukan hanya akurasi.
 - **Kesimpulan praktis:** temuan ini tidak mengharuskan proyek dihentikan; ia memperjelas definisi target dan desain validasi yang dibutuhkan sebelum implementasi perangkat.
@@ -69,3 +69,4 @@ Perbedaan mendasar antara kedua pipeline terletak pada **makna semantik dari lab
 > Pipeline WESAD `_forked` menetapkan label berdasarkan anotasi protokol eksperimen, sedangkan analisis pada penelitian ini merumuskan label berdasarkan respons kuesioner STAI pada tingkat peserta dan kondisi. Untuk setiap peserta, respons STAI yang valid dirata-ratakan dalam setiap kondisi. Suatu kondisi non-Base diberi label sebagai kondisi dengan peningkatan STAI apabila rata-ratanya melebihi rata-rata Base peserta tersebut sekurang-kurangnya 0,2 poin. Ambang ini merupakan aturan operasional berdasarkan laporan diri (*self-report*), bukan ambang diagnostik klinis.
 > 
 > Oleh karena itu, label STAI tidak setara secara langsung dengan label stres yang ditentukan oleh protokol, dan keikutsertaan dalam TSST tidak menjamin adanya peningkatan skor STAI. Jendela fisiologis hanya disimpan jika seluruh rentangnya berada di dalam batas kondisi bertiming yang memiliki label valid; jumlah jendela yang dihasilkan bukanlah jumlah observasi peserta yang independen.
+

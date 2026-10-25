@@ -51,6 +51,6 @@ Pipeline `v2_stai.ipynb` merupakan pendekatan pemrosesan data kustom yang diranc
 ---
 
 ## 4. Tautan Terkait
-- Catatan komparasi utama: [[Development Findings]]
+- Catatan komparasi utama: [[Development Findings 1]]
 - Alternatif pipeline berbasis protokol: [[Pipeline Forked (WESAD Protocol)]]
 - Referensi paper windowing: *Extending Anxiety Detection from Multimodal Wearables in Controlled Conditions to Real-World Environments* (belum ada catatan vault)

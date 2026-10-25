@@ -95,7 +95,7 @@ Mengacu pada taksonomi lengkap di [[Katalog Fitur Fisiologis]]:
 ### D. Ground Truth & Formulasi Label
 - **Data Sekunder WESAD:** Respons kuesioner `quest.csv` State-Trait Anxiety Inventory (STAI Form Y-1). Kondisi non-baseline diberi label **Anxiety (1)** jika mengalami peningkatan signifikan relatif terhadap kondisi santai awal:
   $$\Delta \text{STAI} = \text{Mean}_{\text{kondisi}} - \text{Mean}_{\text{Base}} \ge 0{,}2$$
-  *(Detail aturan pelabelan dibahas pada [[Pipeline STAI User (v2_stai)]] dan pertimbangan analitisnya di [[Development Findings]]).*
+  *(Detail aturan pelabelan dibahas pada [[Pipeline STAI User (v2_stai)]] dan pertimbangan analitisnya di [[Development Findings 1]]).*
 - **Data Primer Pengujian Riil:** Partisipan mengisi **STAI Form Y-1** pada dua titik waktu: tepat setelah Fase Tenang (Baseline 5–10 menit) dan tepat setelah induksi mental.
 
 ---
@@ -147,5 +147,5 @@ Mengacu pada taksonomi lengkap di [[Katalog Fitur Fisiologis]]:
 - 🏠 **Indeks Utama Vault:** [[MOC - Skripsi Repository]]
 - 📄 **Proposal Dokumen Sumber:** [[Proposal Skripsi Overview]] & [[Proposal Skripsi Rizqy J Rev0 - Analisis Kelayakan Model Machine Learning Menggunakan Dataset WESAD untuk Deteksi Anxiety.pdf]]
 - 📊 **Basis Data & Rekayasa Fitur:** [[Dataset WESAD]], [[Katalog Fitur Fisiologis]], [[Pra-Pemrosesan Sinyal & Filtering]], [[Wrangling & Sinkronisasi Multimodal]]
-- 💡 **Metodologi & Validasi:** [[Pipeline STAI User (v2_stai)]], [[Perbandingan Pipeline STAI vs Forked]], [[Development Findings]]
+- 💡 **Metodologi & Validasi:** [[Pipeline STAI User (v2_stai)]], [[Perbandingan Pipeline STAI vs Forked]], [[Development Findings 1]]
 - 🤖 **Evaluasi Model & Artefak:** [[Machine Learning Models & Evaluation]], [[Data Artefacts Overview]]

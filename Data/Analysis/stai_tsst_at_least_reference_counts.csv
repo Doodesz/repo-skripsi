@@ -1,0 +1,5 @@
+target_condition,reference_condition,comparable_subjects,target_equal_count,target_equal_percent,target_higher_count,target_higher_percent,target_equal_or_higher_count,target_equal_or_higher_percent,target_lower_count,target_lower_percent,subject_ids_equal,subject_ids_higher,subject_ids_equal_or_higher
+TSST,Base,15,3,20.0,6,40.0,9,60.0,6,40.0,"[5, 6, 16]","[3, 4, 7, 11, 14, 17]","[3, 4, 5, 6, 7, 11, 14, 16, 17]"
+TSST,Fun,15,3,20.0,11,73.33333333333333,14,93.33333333333333,1,6.666666666666667,"[2, 6, 16]","[3, 4, 5, 7, 8, 10, 11, 13, 14, 15, 17]","[2, 3, 4, 5, 6, 7, 8, 10, 11, 13, 14, 15, 16, 17]"
+TSST,Medi 1,15,1,6.666666666666667,13,86.66666666666667,14,93.33333333333333,1,6.666666666666667,[2],"[3, 4, 5, 6, 7, 8, 10, 11, 13, 14, 15, 16, 17]","[2, 3, 4, 5, 6, 7, 8, 10, 11, 13, 14, 15, 16, 17]"
+TSST,Medi 2,15,3,20.0,11,73.33333333333333,14,93.33333333333333,1,6.666666666666667,"[4, 9, 16]","[3, 5, 6, 7, 8, 10, 11, 13, 14, 15, 17]","[3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 14, 15, 16, 17]"
