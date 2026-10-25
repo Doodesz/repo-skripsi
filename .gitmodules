@@ -1,0 +1,3 @@
+[submodule "Deployment/test1"]
+	path = Deployment/test1
+	url = https://github.com/Doodesz/galaxy-watch9-test1
