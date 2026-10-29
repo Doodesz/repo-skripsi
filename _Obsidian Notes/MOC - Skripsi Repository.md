@@ -19,6 +19,7 @@ Repositori ini mencakup implementasi end-to-end mulai dari data mentah multisens
 ## 🗺️ Struktur & Navigasi Modul
 
 ### 1. Fondasi & Metodologi Riset
+- [[2026-10-29 Research Note]] — Temuan integrasi Samsung Health Sensor SDK untuk BVP/ECG, `PERMISSION_ERROR`, dan dugaan pembatasan ponsel non-Samsung.
 - [[Rencana Riset & Pembangunan Sistem Deteksi Anxiety]] — Ringkasan komprehensif rencana riset, target pembangunan sistem, 5 skenario komparasi modalitas, dan alur eksperimen proposal.
 - [[Proposal Skripsi Overview]] — Ringkasan usulan riset, rumusan masalah, latar belakang kecemasan (anxiety) vs stres, dan alur bab 3.
 - [[Dataset WESAD]] — Dokumentasi dataset WESAD (15 subjek, sensor dada RespiBAN 700 Hz, sensor pergelangan Empatica E4, protokol lab, dan instrumen STAI).

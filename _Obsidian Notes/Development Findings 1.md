@@ -6,6 +6,8 @@ tags:
 ---
 # Temuan & Komparasi Pipeline (Findings)
 
+> Temuan perangkat terbaru terkait akuisisi BVP/ECG dicatat di [[2026-10-29 Research Note]].
+
 ## 1. Temuan Terkait Literatur
 - **Paper referensi:** *Extending Anxiety Detection from Multimodal Wearables in Controlled Conditions to Real-World Environments*
   - Tidak menggunakan windowing overlap (hanya window berdurasi 60 detik tanpa overlap).
