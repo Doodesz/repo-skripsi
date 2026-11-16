@@ -1,0 +1,112 @@
+{
+  "validation_scheme_a": {
+    "LDA": {
+      "accuracy": 0.7766
+    },
+    "Random Forest": {
+      "accuracy": 0.9963
+    },
+    "SVM Linear": {
+      "accuracy": 0.7851
+    },
+    "SVM": {
+      "accuracy": 0.8596
+    },
+    "XGBoost": {
+      "accuracy": 0.9976
+    },
+    "KNN": {
+      "accuracy": 0.9756
+    }
+  },
+  "validation_scheme_b": [
+    {
+      "Model": "Random Forest (max_depth=4)",
+      "Pooled Accuracy": 0.6798534798534799,
+      "Pooled Balanced Acc": 0.6812197606315253,
+      "Pooled Macro F1": 0.6779599973102072,
+      "Class 0 F1 (No Anxiety)": 0.6532663316582914,
+      "Class 1 F1 (Anxiety Inc)": 0.702653662962123,
+      "Macro-Subject Accuracy": 0.6809174942807892,
+      "Macro-Subject Balanced Acc": 0.7331531726555868,
+      "Macro-Subject Macro F1": 0.6676129478280933
+    },
+    {
+      "Model": "Random Forest (max_depth=25)",
+      "Pooled Accuracy": 0.694993894993895,
+      "Pooled Balanced Acc": 0.6991596638655462,
+      "Pooled Macro F1": 0.6939946939946939,
+      "Class 0 F1 (No Anxiety)": 0.6765086765086764,
+      "Class 1 F1 (Anxiety Inc)": 0.7114807114807116,
+      "Macro-Subject Accuracy": 0.6957633518508224,
+      "Macro-Subject Balanced Acc": 0.7321497454555934,
+      "Macro-Subject Macro F1": 0.6844033831730963
+    },
+    {
+      "Model": "XGBoost",
+      "Pooled Accuracy": 0.6686202686202686,
+      "Pooled Balanced Acc": 0.6661701044053985,
+      "Pooled Macro F1": 0.6649603116296605,
+      "Class 0 F1 (No Anxiety)": 0.6299427324788656,
+      "Class 1 F1 (Anxiety Inc)": 0.6999778907804555,
+      "Macro-Subject Accuracy": 0.6697249974218167,
+      "Macro-Subject Balanced Acc": 0.7004453356410657,
+      "Macro-Subject Macro F1": 0.6433999474348691
+    },
+    {
+      "Model": "SVM (RBF)",
+      "Pooled Accuracy": 0.692063492063492,
+      "Pooled Balanced Acc": 0.6968169085816145,
+      "Pooled Macro F1": 0.6912202182963589,
+      "Class 0 F1 (No Anxiety)": 0.6750837413037877,
+      "Class 1 F1 (Anxiety Inc)": 0.7073566952889301,
+      "Macro-Subject Accuracy": 0.691082742513555,
+      "Macro-Subject Balanced Acc": 0.7168950376040366,
+      "Macro-Subject Macro F1": 0.6714584635501311
+    },
+    {
+      "Model": "KNN (k=5)",
+      "Pooled Accuracy": 0.6661782661782661,
+      "Pooled Balanced Acc": 0.6626687038451744,
+      "Pooled Macro F1": 0.6619121028783159,
+      "Class 0 F1 (No Anxiety)": 0.6239339752407151,
+      "Class 1 F1 (Anxiety Inc)": 0.6998902305159166,
+      "Macro-Subject Accuracy": 0.6658388608750428,
+      "Macro-Subject Balanced Acc": 0.6644887318569128,
+      "Macro-Subject Macro F1": 0.6368009479607978
+    },
+    {
+      "Model": "SVM Linear (C=1.0)",
+      "Pooled Accuracy": 0.6854700854700855,
+      "Pooled Balanced Acc": 0.6921823274764451,
+      "Pooled Macro F1": 0.6850531181315335,
+      "Class 0 F1 (No Anxiety)": 0.6735935124176381,
+      "Class 1 F1 (Anxiety Inc)": 0.6965127238454288,
+      "Macro-Subject Accuracy": 0.6839823374236018,
+      "Macro-Subject Balanced Acc": 0.7422202924821519,
+      "Macro-Subject Macro F1": 0.6684705510992104
+    },
+    {
+      "Model": "SVM Linear (C=0.9)",
+      "Pooled Accuracy": 0.685958485958486,
+      "Pooled Balanced Acc": 0.6926788897377133,
+      "Pooled Macro F1": 0.6855421660847454,
+      "Class 0 F1 (No Anxiety)": 0.6741003547896605,
+      "Class 1 F1 (Anxiety Inc)": 0.6969839773798303,
+      "Macro-Subject Accuracy": 0.684464087026854,
+      "Macro-Subject Balanced Acc": 0.74261852886389,
+      "Macro-Subject Macro F1": 0.6689104683547149
+    },
+    {
+      "Model": "LDA",
+      "Pooled Accuracy": 0.7118437118437119,
+      "Pooled Balanced Acc": 0.7245989304812834,
+      "Pooled Macro F1": 0.7118311842777584,
+      "Class 0 F1 (No Anxiety)": 0.7137311984473556,
+      "Class 1 F1 (Anxiety Inc)": 0.7099311701081612,
+      "Macro-Subject Accuracy": 0.7107915311173701,
+      "Macro-Subject Balanced Acc": 0.7652598204957398,
+      "Macro-Subject Macro F1": 0.7001120590582469
+    }
+  ]
+}
