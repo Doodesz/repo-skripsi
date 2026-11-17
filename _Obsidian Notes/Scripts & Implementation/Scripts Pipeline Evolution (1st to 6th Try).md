@@ -125,6 +125,6 @@ Generasi final yang menyelaraskan seluruh metodologi pra-pemrosesan sinyal dan e
 | `Scripts/1st try/v1.ipynb` | [[Script v1]] | `Models/random_forest_model.joblib`, `wesad_stress_model.tflite` |
 | `Scripts/1st try/v2_stai.ipynb` | [[Script v2_stai]] | `Models/binary_*.joblib` |
 | `Scripts/4th try/` & `5th try/` | [[2026-11-05 Research Note]], [[Model Output Specs 5th Try]] | `Models/5th try/stai_baseline_relative_*.joblib` |
-| `Scripts/6th try/2class/` | [[Model Output Specs 6th Try 2-Class]], [[2026-11-12 Research Note]] | `Models/6th try/2class/stai_2class_schemeA_*.joblib` |
-| `Scripts/6th try/3class/` | [[Model Output Specs 6th Try 3-Class]], [[2026-11-12 Research Note]] | `Models/6th try/3class/stai_3class_schemeA_*.joblib` |
+| `Scripts/6th try/2class/` | [[Script 6th Try Pipeline (Alkurdi Alignment)]], [[Model Output Specs 6th Try 2-Class]], [[2026-11-12 Research Note]] | `Models/6th try/2class/stai_2class_schemeA_*.joblib` |
+| `Scripts/6th try/3class/` | [[Script 6th Try Pipeline (Alkurdi Alignment)]], [[Model Output Specs 6th Try 3-Class]], [[2026-11-12 Research Note]] | `Models/6th try/3class/stai_3class_schemeA_*.joblib` |
 | `Deployment/test1/` | [[2026-10-29 Research Note]] | Wear OS Samsung Health Sensor SDK Application |

@@ -80,6 +80,7 @@ Dokumentasi teknis kode sumber dan artefak model tersimpan:
 - [[Scripts Pipeline Evolution (1st to 6th Try)]] — **Dokumen sintesis utama** yang merangkum kronologi evolusi seluruh skrip di `Scripts/` (1st try, 2nd try, 3rd try, 4th try, 5th try, 6th try, Plan-b, dan Utils).
 - [[Script v1]] — Implementasi teknis `Scripts/1st try/v1.ipynb` untuk klasifikasi 3-kelas protokol WESAD.
 - [[Script v2_stai]] — Implementasi teknis `Scripts/1st try/v2_stai.ipynb` untuk klasifikasi biner STAI awal.
+- [[Script 6th Try Pipeline (Alkurdi Alignment)]] — Dokumentasi komprehensif implementasi pipeline termutakhir (`Scripts/6th try/`): sinkronisasi outer-join nanosekon Alkurdi, rektifikasi STAI-6, 155 fitur prediktif, komparasi Scheme A vs Scheme B (LOSO), serta validasi kritis terhadap repositori upstream `_forked`.
 - [[Forked Repository Overview]] — Ikhtisar repositori referensi upstream disertasi `anxietyFB` (Alkurdi et al.).
 - [[Modul Library fb_code]] — Dokumentasi modul pustaka Python pada `_forked/fb_code/` (`feature_extraction.py`, `utils.py`, `ecg.py`, `respiration.py`).
 - [[Data Artefacts Overview]] — Dokumentasi struktur penyimpanan data mentah, data bersih, dan dataset fitur teranotasi (`Data/5th try/`, `Data/6th try/`, `Data/Analysis/`, dan `_forked/data/`).

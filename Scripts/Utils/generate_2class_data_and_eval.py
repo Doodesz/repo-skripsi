@@ -61,7 +61,8 @@ metadata_columns = {
     'anxiety_label', 'binary_anxiety', 'three_class_anxiety', 'subject_id',
     'condition', 'window_start_seconds', 'window_end_seconds',
     'condition_stai_mean', 'baseline_stai_mean', 'delta_stai',
-    'condition_stai_sum', 'baseline_stai_sum', 'delta_stai_sum', 'delta_stai_mean'
+    'condition_stai_sum', 'baseline_stai_sum', 'delta_stai_sum', 'delta_stai_mean',
+    'ACC_subwindow_count'
 }
 feature_columns = [col for col in combined_df.columns if col not in metadata_columns]
 X = combined_df[feature_columns].apply(pd.to_numeric, errors='coerce').replace([np.inf, -np.inf], np.nan).fillna(0)

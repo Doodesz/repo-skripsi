@@ -117,8 +117,8 @@
 | Parameter | Value |
 |---|---|
 | Total DataFrame Columns | **167** |
-| Metadata Columns (Excluded from $X$) | **12** (`anxiety_label`, `delta_stai`, `delta_stai_sum`, `delta_stai_mean`, `condition_stai_sum`, `baseline_stai_sum`, `condition_stai_mean`, `baseline_stai_mean`, `subject_id`, `condition`, `window_start_seconds`, `window_end_seconds`) |
-| **Predictive Feature Dimension ($X$)** | **155 features** |
+| Metadata Columns (Excluded from $X$) | **13** (`anxiety_label`, `delta_stai`, `delta_stai_sum`, `delta_stai_mean`, `condition_stai_sum`, `baseline_stai_sum`, `condition_stai_mean`, `baseline_stai_mean`, `subject_id`, `condition`, `window_start_seconds`, `window_end_seconds`, `ACC_subwindow_count`) |
+| **Predictive Feature Dimension ($X$)** | **154 features** (Sanitized per 2026-11-17 audit; formerly 155 when operational `ACC_subwindow_count` was unmasked) |
 
 ### 4.2 Feature Modality Distribution
 - **Statistical Moments (Mean, Std, Min, Max):** Computed across EDA, EDA Phasic (SCR), EDA Tonic (SCL), BVP, TEMP, Chest ECG, Chest EDA, Chest EMG, Chest Resp, Chest Temp, and Net Accelerations.
@@ -126,6 +126,14 @@
 - **Cardiovascular Features (HeartPy):** `ECG_bpm`, `ECG_ibi`, `ECG_sdnn`, `ECG_sdsd`, `ECG_rmssd`, `ECG_pnn20`, `ECG_pnn50`.
 - **Respiration Dynamics:** `Resp_C_rate`, `Resp_C_Inhal_mean`, `Resp_C_Inhal_std`, `Resp_C_Exhal_mean`, `Resp_C_Exhal_std`, `Resp_C_I/E`.
 - **Kinetic ACC Sub-Window Moments:** 36 features representing the mean and standard deviation of sub-window standard deviations, absolute integrals, and peak frequencies across all 6 ACC axes.
+
+### 4.3 Spectral Peak Frequency Calibration & Model Sensitivity (2026-11-17 Update)
+> [!NOTE] Sensor-Calibrated Sampling Frequencies in `get_peak_freq`
+> In earlier benchmark runs inherited from `_forked/fb_code/utils.py`, `get_peak_freq` computed periodograms using a hardcoded $f_s = 8\text{ Hz}$. Per the 2026-11-17 audit ([[2026-11-17 Research Note]]), the helper function was localized to [`Scripts/6th try/fb_code/utils.py`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Scripts/6th%20try/fb_code/utils.py) and refactored to dynamically accept the native sensor sampling rate (`fs=64` for BVP, `fs=32` for wrist ACC, `fs=700` for chest ACC).
+> 
+> **Impact on Feature Space & Model Metrics:**
+> - Exactly **19 features** (1 BVP peak, 6 global ACC peaks, and 12 ACC sub-window peak statistics) now reflect physical Hertz instead of compressed frequency bins.
+> - This recalibration causes minor performance shifts across 3-class pooled and LOSO fold metrics compared to the uncalibrated $f_s=8$ baseline. This variation is a natural, expected consequence of physical feature calibration and ensures true cross-device portability.
 
 ---
 
@@ -161,7 +169,7 @@ All models in the 6th try use **single-stage Z-score standardization** via `skle
 $$z_{i, j} = \frac{x_{i, j} - \mu_j}{\sigma_j}$$
 where $\mu_j$ is the training-set mean and $\sigma_j$ is the training-set standard deviation of feature $j$.
 
-- **Scaling Application:** Applied across all 155 continuous physiological features, centering them at $\mu = 0$ with unit variance $\sigma = 1$.
+- **Scaling Application:** Applied across all 154 continuous physiological features, centering them at $\mu = 0$ with unit variance $\sigma = 1$.
 - **Methodological Purpose:** Normalizes the divergent scales across multimodal sensors (e.g., skin conductance level in $\mu\text{S}$, heart rate variability in $\text{ms}$, triaxial acceleration in $g$, and respiratory phase ratios).
 
 #### B. Normalization: Omission of MinMaxScaler (Alkurdi Alignment)
@@ -226,13 +234,13 @@ All models are serialized to [`Models/6th try/3class/`](file:///e:/Rizqy/Kuliah/
 ### 8.1 Pooled Classification Metrics & Confusion Matrices
 
 #### A. SVM (RBF Kernel) — **Peak Pooled Accuracy Model**
-- **Pooled Accuracy:** **57.22%** (2,343 / 4,095 correct)
-- **Balanced Accuracy:** **50.27%**
-- **Macro F1:** **0.4976**
-- **Class 0 F1 (No Anxiety):** **0.4352**
-- **Class 1 F1 (Potential Anxiety):** **0.2612**
+- **Pooled Accuracy:** **57.24%** (2,344 / 4,095 correct)
+- **Balanced Accuracy:** **50.30%**
+- **Macro F1:** **0.4980**
+- **Class 0 F1 (No Anxiety):** **0.4354**
+- **Class 1 F1 (Potential Anxiety):** **0.2621**
 - **Class 2 F1 (Anxiety Increased):** **0.7965**
-- **Macro-Subject Accuracy:** **57.07%** | **Macro-Subject Balanced Acc:** **57.72%**
+- **Macro-Subject Accuracy:** **57.09%** | **Macro-Subject Balanced Acc:** **57.74%**
 
 Confusion Matrix (LOSO Pooled, rows=True [0, 1, 2], cols=Pred [0, 1, 2]):
 
@@ -291,37 +299,23 @@ Confusion Matrix (LOSO Pooled):
 | **True: Potential (1)** | 471 | **488** | 67 |
 | **True: Anxiety Inc (2)** | 326 | 232 | **1,401** |
 
-#### E. Random Forest (`max_depth=25`, Updated)
-- **Pooled Accuracy:** **53.21%**
-- **Balanced Accuracy:** **45.78%**
-- **Macro F1:** **0.4538**
-- **Class 0 F1:** **0.3748**
-- **Class 1 F1:** **0.1932**
-- **Class 2 F1:** **0.7935**
+#### E. Random Forest (`max_depth=4`, Alkurdi Spec)
+- **Pooled Accuracy:** **54.29%**
+- **Balanced Accuracy:** **46.84%**
+- **Macro F1:** **0.4630**
+- **Class 0 F1:** **0.4017**
+- **Class 1 F1:** **0.1955**
+- **Class 2 F1:** **0.7918**
+- **Macro-Subject Accuracy:** **54.11%** | **Macro-Subject Balanced Acc:** **56.86%**
 
-Confusion Matrix (LOSO Pooled):
-
-| | Pred: No Anxiety (0) | Pred: Potential (1) | Pred: Anxiety Inc (2) |
-|---|---|---|---|
-| **True: No Anxiety (0)** | **452** | 533 | 125 |
-| **True: Potential (1)** | 579 | **182** | 265 |
-| **True: Anxiety Inc (2)** | 271 | 143 | **1,545** |
-
-#### F. Random Forest (`max_depth=4`, Alkurdi Spec)
-- **Pooled Accuracy:** **52.94%**
-- **Balanced Accuracy:** **45.43%**
-- **Macro F1:** **0.4510**
-- **Class 0 F1:** **0.3699**
-- **Class 1 F1:** **0.1908**
-- **Class 2 F1:** **0.7922**
-
-Confusion Matrix (LOSO Pooled):
-
-| | Pred: No Anxiety (0) | Pred: Potential (1) | Pred: Anxiety Inc (2) |
-|---|---|---|---|
-| **True: No Anxiety (0)** | **440** | 531 | 139 |
-| **True: Potential (1)** | 585 | **182** | 259 |
-| **True: Anxiety Inc (2)** | 244 | 169 | **1,546** |
+#### F. Random Forest (`max_depth=25`, Updated)
+- **Pooled Accuracy:** **53.82%**
+- **Balanced Accuracy:** **45.71%**
+- **Macro F1:** **0.4490**
+- **Class 0 F1:** **0.3571**
+- **Class 1 F1:** **0.1952**
+- **Class 2 F1:** **0.7947**
+- **Macro-Subject Accuracy:** **53.60%** | **Macro-Subject Balanced Acc:** **56.25%**
 
 #### G. KNN ($k=5$)
 - **Pooled Accuracy:** **51.06%**
@@ -336,13 +330,13 @@ Confusion Matrix (LOSO Pooled):
 ### 8.2 LOSO Cross-Validation Summary Table
 | Model Architecture | Pooled Accuracy | Pooled Balanced Acc | Pooled Macro F1 | Class 0 F1 (No Anx) | Class 1 F1 (Potential) | Class 2 F1 (Anx Inc) | Macro-Subject Accuracy | Macro-Subject Balanced Acc | Macro-Subject Macro F1 |
 |---|---|---|---|---|---|---|---|---|---|
-| **SVM (RBF)** | **57.22%** | **50.27%** | **0.4976** | **0.4352** | **0.2612** | **0.7965** | **57.07%** | **57.72%** | **0.4341** |
+| **SVM (RBF)** | **57.24%** | **50.30%** | **0.4980** | **0.4354** | **0.2621** | **0.7965** | **57.09%** | **57.74%** | **0.4342** |
 | **SVM Linear ($C=1.0$)** | **56.39%** | **51.01%** | **0.5024** | **0.4558** | **0.2672** | **0.7841** | **56.53%** | **56.03%** | **0.4332** |
-| **SVM Linear ($C=0.9$)** | **56.34%** | **50.98%** | **0.5015** | **0.4579** | **0.2638** | **0.7827** | **56.48%** | **56.08%** | **0.4342** |
+| **SVM Linear ($C=0.9$)** | **56.36%** | **51.01%** | **0.5017** | **0.4585** | **0.2640** | **0.7827** | **56.50%** | **56.10%** | **0.4343** |
 | **XGBoost** | **55.58%** | **49.31%** | **0.4942** | **0.3777** | **0.3098** | **0.7951** | **55.48%** | **57.78%** | **0.4405** |
 | **LDA** | **55.56%** | **51.28%** | **0.5130** | **0.3367** | **0.4319** | **0.7704** | **55.28%** | **56.92%** | **0.4544** |
-| **Random Forest (`max_depth=25`)** | **53.21%** | **45.78%** | **0.4538** | **0.3748** | **0.1932** | **0.7935** | **53.07%** | **56.44%** | **0.4289** |
-| **Random Forest (`max_depth=4`, Alkurdi)** | **52.94%** | **45.43%** | **0.4510** | **0.3699** | **0.1908** | **0.7922** | **52.80%** | **55.61%** | **0.4177** |
+| **Random Forest (`max_depth=4`, Alkurdi)** | **54.29%** | **46.84%** | **0.4630** | **0.4017** | **0.1955** | **0.7918** | **54.11%** | **56.86%** | **0.4003** |
+| **Random Forest (`max_depth=25`)** | **53.82%** | **45.71%** | **0.4490** | **0.3571** | **0.1952** | **0.7947** | **53.60%** | **56.25%** | **0.4204** |
 | **KNN ($k=5$)** | **51.06%** | **45.85%** | **0.4555** | **0.3990** | **0.2214** | **0.7462** | **50.79%** | **52.32%** | **0.4071** |
 
 ---
@@ -462,9 +456,9 @@ Confusion Matrix (LOSO Pooled):
 | **Class Distribution** | 82.1% Class 0 / 17.9% Class 1 | **27.11% C0 / 25.05% C1 / 47.84% C2** | 43.59% Class 0 / 56.41% Class 1 | 54.1% Base / 30.3% Stress / 15.6% Fun |
 | **Zero-Inflation** | Severe (8/15 subjects had 0 positive) | **Resolved (15/15 have Class 2)** | Resolved (15/15 have Class 1) | None (protocol stimulus driven) |
 | **Sensor Clock Alignment** | Polyphase rational resampling (70 Hz) | **Alkurdi `outer` join + `pd.to_datetime`** | Alkurdi `outer` join + `pd.to_datetime` | Alkurdi `outer` join + `pd.to_datetime` |
-| **Predictive Features** | 154 features | **155 features** | 155 features | 120 features |
-| **Scheme A Leakage Acc** | 86%–89% (`GroupShuffleSplit`) | **92.8%–100.0% (`train_test_split`)** | 93.8%–100.0% (`train_test_split`) | 93.6%–97.9% (`train_test_split`) |
-| **LOSO Peak Accuracy** | 87.41% (SVM RBF, collapsed minority) | **57.22% (SVM RBF)** | 74.43% (Random Forest depth 4) | *No LOSO evaluation performed* |
-| **LOSO Peak Balanced Acc** | 70.78% (XGBoost) | **51.28% (LDA) / 51.01% (SVM Lin)** | 74.90% (Random Forest depth 4) | *No LOSO evaluation performed* |
-| **LOSO Peak Macro F1** | 0.5584 (SVM RBF) | **0.5130 (LDA) / 0.5024 (SVM Lin)** | 0.7434 (Random Forest depth 4) | *No LOSO evaluation performed* |
+| **Predictive Features** | 154 features | **154 features** | 154 features | 120 features |
+| **Scheme A Leakage Acc** | 86%–89% (`GroupShuffleSplit`) | **92.8%–100.0% (`train_test_split`)** | 92.3%–100.0% (`train_test_split`) | 93.6%–97.9% (`train_test_split`) |
+| **LOSO Peak Accuracy** | 87.41% (SVM RBF, collapsed minority) | **57.24% (SVM RBF)** | 74.14% (XGBoost) / 73.46% (RF depth 4) | *No LOSO evaluation performed* |
+| **LOSO Peak Balanced Acc** | 70.78% (XGBoost) | **51.28% (LDA) / 51.01% (SVM Lin)** | 74.24% (XGBoost) / 74.00% (RF depth 4) | *No LOSO evaluation performed* |
+| **LOSO Peak Macro F1** | 0.5584 (SVM RBF) | **0.5130 (LDA) / 0.5024 (SVM Lin)** | 0.7394 (XGBoost) / 0.7338 (RF depth 4) | *No LOSO evaluation performed* |
 | **Macro-Subject Anxiety F1** | 0.16–0.21 (dragged down by zeros) | **0.7965 (Class 2 F1 across all 15 subjects)** | 0.7720 (Class 1 across all 15 subjects) | *N/A* |

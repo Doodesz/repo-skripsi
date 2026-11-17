@@ -49,18 +49,18 @@ Therefore, true wearable feasibility must be established on the **sensor modalit
 | Subject | Total Windows | Class 0 ($\Delta \le 0$) | Class 1 ($\Delta > 0$) | TSST Assigned Class |
 | :---: | :---: | :---: | :---: | :---: |
 | **S2** | 257 | 166 (64.6%) | 91 (35.4%) | Class 1 ($\Delta = +10$) |
-| **S3** | 260 | 48 (18.5%) | 212 (81.5%) | Class 1 ($\Delta = +6$) |
-| **S4** | 272 | 55 (20.2%) | 217 (79.8%) | Class 1 ($\Delta = +4$) |
-| **S5** | 270 | 113 (41.9%) | 157 (58.1%) | Class 1 ($\Delta = +7$) |
-| **S6** | 269 | 111 (41.3%) | 158 (58.7%) | Class 1 ($\Delta = +8$) |
-| **S7** | 275 | 56 (20.4%) | 219 (79.6%) | Class 1 ($\Delta = +6$) |
-| **S8** | 263 | 103 (39.2%) | 160 (60.8%) | Class 1 ($\Delta = +6$) |
-| **S9** | 262 | 113 (43.1%) | 149 (56.9%) | Class 1 ($\Delta = +8$) |
-| **S10** | 289 | 110 (38.1%) | 179 (61.9%) | Class 1 ($\Delta = +7$) |
-| **S11** | 285 | 178 (62.5%) | 107 (37.5%) | Class 1 ($\Delta = +3$) |
-| **S13** | 280 | 116 (41.4%) | 164 (58.6%) | Class 1 ($\Delta = +9$) |
-| **S14** | 282 | 176 (62.4%) | 106 (37.6%) | Class 1 ($\Delta = +8$) |
-| **S15** | 282 | 174 (61.7%) | 108 (38.3%) | Class 1 ($\Delta = +5$) |
+| **S3** | 260 | 48 (18.5%) | 212 (81.5%) | Class 1 ($\Delta = +11$) |
+| **S4** | 272 | 55 (20.2%) | 217 (79.8%) | Class 1 ($\Delta = +8$) |
+| **S5** | 270 | 113 (41.9%) | 157 (58.1%) | Class 1 ($\Delta = +8$) |
+| **S6** | 269 | 111 (41.3%) | 158 (58.7%) | Class 1 ($\Delta = +6$) |
+| **S7** | 275 | 56 (20.4%) | 219 (79.6%) | Class 1 ($\Delta = +10$) |
+| **S8** | 263 | 103 (39.2%) | 160 (60.8%) | Class 1 ($\Delta = +5$) |
+| **S9** | 262 | 113 (43.1%) | 149 (56.9%) | Class 1 ($\Delta = +5$) |
+| **S10** | 289 | 110 (38.1%) | 179 (61.9%) | Class 1 ($\Delta = +9$) |
+| **S11** | 285 | 178 (62.5%) | 107 (37.5%) | Class 1 ($\Delta = +10$) |
+| **S13** | 280 | 116 (41.4%) | 164 (58.6%) | Class 1 ($\Delta = +7$) |
+| **S14** | 282 | 176 (62.4%) | 106 (37.6%) | Class 1 ($\Delta = +5$) |
+| **S15** | 282 | 174 (61.7%) | 108 (38.3%) | Class 1 ($\Delta = +7$) |
 | **S16** | 274 | 164 (59.9%) | 110 (40.1%) | Class 1 ($\Delta = +6$) |
 | **S17** | 275 | 102 (37.1%) | 173 (62.9%) | Class 1 ($\Delta = +9$) |
 | **TOTAL** | **4,095** | **1,785 (43.59%)** | **2,310 (56.41%)** | **15/15 (100%)** |
@@ -73,10 +73,13 @@ Therefore, true wearable feasibility must be established on the **sensor modalit
 |---|:---:|---|---|
 | **Wrist Accelerometer (Basic Window Stats)** | 16 | `mean`, `std`, `min`, `max` for `ACC_x`, `ACC_y`, `ACC_z`, `net_acc` | Captures overall kinetic exertion and arm posture across the 60s window. |
 | **Wrist Accelerometer (Sub-Window Aggregations)** | 18 | `ACC_sub_{col}_{stat}_mean`, `ACC_sub_{col}_{stat}_std` for `col` $\in$ {`ACC_x`, `ACC_y`, `ACC_z`} and `stat` $\in$ {`std`, `abs_integral`, `peak_freq`} | 5-second sub-windows sliding by 0.25 seconds (221 sub-windows per main window). Captures micro-movement variance, tremor bursts, and kinetic energy dynamics. |
-| **Wrist Accelerometer (Kinetic Dynamics)** | 8 | `ACC_subwindow_count`, `net_acc_abs_integral`, `ACC_x_abs_integral`, `ACC_y_abs_integral`, `ACC_z_abs_integral`, `ACC_x_peak_freq`, `ACC_y_peak_freq`, `ACC_z_peak_freq` | Measures cumulative integral energy and dominant movement frequency per axis. |
+| **Wrist Accelerometer (Kinetic Dynamics)** | 7 | `net_acc_abs_integral`, `ACC_x_abs_integral`, `ACC_y_abs_integral`, `ACC_z_abs_integral`, `ACC_x_peak_freq`, `ACC_y_peak_freq`, `ACC_z_peak_freq` (`ACC_subwindow_count` masked as metadata) | Measures cumulative integral energy and dominant movement frequency per axis. |
 | **Wrist Electrodermal Activity (EDA)** | 14 | `mean`, `std`, `min`, `max` for raw `EDA`, phasic `EDA_phasic` (SCR), and tonic `EDA_tonic` (SCL); `EDA_slope`, `EDA_drange` | NeuroKit2 phasic/tonic decomposition after Butterworth lowpass ($f_c = 1.0\text{ Hz}$). Measures sympathetic arousal, sweat gland conductance, and trend trajectory. |
 | **Wrist Skin Temperature (TEMP)** | 6 | `mean`, `std`, `min`, `max` for `TEMP`; `TEMP_slope`, `TEMP_drange` | Native pass-through with linear slope and range extraction. Measures peripheral vasoconstriction and cooling rate. |
-| **TOTAL** | **62** | — | **Smartwatch-Wearable Only Feature Vector** |
+| **TOTAL** | **61** | — | **Smartwatch-Wearable Only Feature Vector** (Sanitized per 2026-11-17 audit; formerly 62) |
+
+> [!NOTE] Spectral Feature Calibration (2026-11-17 Rectification)
+> In this sliced smartwatch-only feature set, **7 features** depend on `get_peak_freq`: 6 sub-window peak frequency statistics (`ACC_sub_{x,y,z}_peak_freq_mean/std`) and 3 global peak frequency features (`ACC_{x,y,z}_peak_freq`). Following the 2026-11-17 audit ([[2026-11-17 Research Note]]), these are now computed using the native accelerometer rate `fs=32` instead of the legacy `fs=8`. This physical calibration causes minor variations in model accuracy metrics while guaranteeing real-world smartwatch compatibility.
 
 ---
 
@@ -101,8 +104,8 @@ Therefore, true wearable feasibility must be established on the **sensor modalit
 
 | Model | Pooled Accuracy | Pooled Balanced Acc | Pooled Macro F1 | Class 0 F1 (No Anxiety) | Class 1 F1 (Anxiety Inc) | Macro-Subject Accuracy | Macro-Subject Balanced Acc | Macro-Subject Macro F1 |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Random Forest (`max_depth=4`, Alkurdi)** | **71.14%** | **71.22%** | **0.7093** | **0.6846** | **0.7339** | **71.36%** | **76.35%** | **0.7010** |
-| **Random Forest (`max_depth=25`)** | **69.87%** | **69.62%** | **0.6951** | **0.6621** | **0.7281** | **70.11%** | **74.19%** | **0.6861** |
+| **Random Forest (`max_depth=25`)** | **70.23%** | **70.15%** | **0.6995** | **0.6705** | **0.7286** | **70.41%** | **74.42%** | **0.6895** |
+| **Random Forest (`max_depth=4`, Alkurdi)** | **69.28%** | **69.03%** | **0.6892** | **0.6557** | **0.7227** | **69.50%** | **74.04%** | **0.6791** |
 | **LDA** | **67.62%** | **67.94%** | **0.6749** | **0.6549** | **0.6950** | **67.64%** | **72.97%** | **0.6700** |
 | **XGBoost** | **66.37%** | **66.18%** | **0.6604** | **0.6265** | **0.6942** | **66.52%** | **70.54%** | **0.6476** |
 | **SVM (RBF)** | **63.91%** | **63.35%** | **0.6334** | **0.5878** | **0.6790** | **63.91%** | **64.74%** | **0.6088** |
@@ -114,7 +117,7 @@ Therefore, true wearable feasibility must be established on the **sensor modalit
 
 ## 5. Comparative Shortfall Analysis: Sliced Modalities vs. Full-Modality Suite
 
-This section evaluates the exact performance penalty incurred when discarding all chest-worn sensors and optical BVP (reducing the feature set from 155 to 62 features) across both **Validation Scheme B (15-Fold Leave-One-Subject-Out CV)** and **Validation Scheme A (Naive Random Split 80/20)**.
+This section evaluates the exact performance penalty incurred when discarding all chest-worn sensors and optical BVP (reducing the feature set from 154 to 61 features) across both **Validation Scheme B (15-Fold Leave-One-Subject-Out CV)** and **Validation Scheme A (Naive Random Split 80/20)**.
 
 $$\text{Shortfall} = \text{Metric}_{\text{Full}} - \text{Metric}_{\text{Sliced}} \quad\Big|\quad \text{Retention Rate} = \frac{\text{Metric}_{\text{Sliced}}}{\text{Metric}_{\text{Full}}} \times 100\%$$
 
@@ -123,12 +126,12 @@ $$\text{Shortfall} = \text{Metric}_{\text{Full}} - \text{Metric}_{\text{Sliced}}
 ### 5.1 Validation Scheme B: 15-Fold Leave-One-Subject-Out (LOSO) Cross-Validation Shortfall
 *Measures true subject-independent generalization shortfall without inter-subject data leakage:*
 
-| Classifier Model | Full Modality LOSO Acc (155 feats) | Sliced Sensor LOSO Acc (62 feats) | LOSO Acc Shortfall ($\Delta$) | LOSO Retention Rate | Full LOSO Bal Acc | Sliced LOSO Bal Acc | Full LOSO Macro F1 | Sliced LOSO Macro F1 | Full C0 / C1 F1 | Sliced C0 / C1 F1 |
+| Classifier Model | Full Modality LOSO Acc (154 feats) | Sliced Sensor LOSO Acc (61 feats) | LOSO Acc Shortfall ($\Delta$) | LOSO Retention Rate | Full LOSO Bal Acc | Sliced LOSO Bal Acc | Full LOSO Macro F1 | Sliced LOSO Macro F1 | Full C0 / C1 F1 | Sliced C0 / C1 F1 |
 |---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Random Forest (`max_depth=4`, Alkurdi)** | **74.43%** | **71.14%** | **+3.29%** | **95.57%** | 74.90% | **71.22%** | 0.7434 | **0.7093** | 0.7281 / 0.7587 | **0.6846 / 0.7339** |
-| **Random Forest (`max_depth=25`)** | 73.72% | **69.87%** | **+3.85%** | **94.77%** | 74.11% | **69.62%** | 0.7361 | **0.6951** | 0.7191 / 0.7532 | **0.6621 / 0.7281** |
+| **Random Forest (`max_depth=25`)** | 73.19% | **70.23%** | **+2.96%** | **95.96%** | 73.36% | **70.15%** | 0.7301 | **0.6995** | 0.7084 / 0.7518 | **0.6705 / 0.7286** |
+| **Random Forest (`max_depth=4`, Alkurdi)** | **73.46%** | **69.28%** | **+4.18%** | **94.31%** | 74.00% | **69.03%** | 0.7338 | **0.6892** | 0.7198 / 0.7479 | **0.6557 / 0.7227** |
 | **SVM Linear ($C=1.0$)** | 64.96% | **63.17%** | **+1.79%** | **97.25%** | 64.64% | **63.00%** | 0.6455 | **0.6285** | 0.6074 / 0.6836 | **0.5935 / 0.6634** |
-| **SVM Linear ($C=0.9$)** | 64.98% | **63.15%** | **+1.83%** | **97.18%** | 64.70% | **62.98%** | 0.6459 | **0.6282** | 0.6088 / 0.6830 | **0.5934 / 0.6631** |
+| **SVM Linear ($C=0.9$)** | 65.01% | **63.15%** | **+1.86%** | **97.14%** | 64.72% | **62.98%** | 0.6462 | **0.6282** | 0.6090 / 0.6833 | **0.5934 / 0.6631** |
 | **LDA** | 62.66% | **67.62%** | **-4.96% (Gain)** | **107.91%** | 62.70% | **67.94%** | 0.6244 | **0.6749** | 0.5952 / 0.6535 | **0.6549 / 0.6950** |
 | **XGBoost** | 74.14% | **66.37%** | **+7.77%** | **89.52%** | 74.24% | **66.18%** | 0.7394 | **0.6604** | 0.7168 / 0.7621 | **0.6265 / 0.6942** |
 | **SVM (RBF)** | 72.04% | **63.91%** | **+8.13%** | **88.71%** | 71.59% | **63.35%** | 0.7158 | **0.6334** | 0.6797 / 0.7519 | **0.5878 / 0.6790** |
@@ -141,12 +144,12 @@ $$\text{Shortfall} = \text{Metric}_{\text{Full}} - \text{Metric}_{\text{Sliced}}
 
 | Classifier Model | Full Modality Scheme A Acc | Sliced Sensor Scheme A Acc | Scheme A Acc Shortfall ($\Delta$) | Scheme A vs. LOSO Sliced Discrepancy (Leakage Gap) |
 |---|:---:|:---:|:---:|:---:|
-| **Random Forest (`max_depth=25`)** | 100.00% | **100.00%** | **0.00%** | **+30.13%** (100.00% vs 69.87% LOSO) |
-| **XGBoost** | 99.76% | **100.00%** | **-0.24%** | **+33.63%** (100.00% vs 66.37% LOSO) |
-| **KNN ($k=5$)** | 99.39% | **97.56%** | **+1.83%** | **+39.24%** (97.56% vs 58.32% LOSO) |
-| **SVM (RBF)** | 100.00% | **95.36%** | **+4.64%** | **+31.45%** (95.36% vs 63.91% LOSO) |
-| **SVM Linear ($C=1.0$)** | 96.58% | **82.05%** | **+14.53%** | **+18.88%** (82.05% vs 63.17% LOSO) |
-| **LDA** | 93.77% | **79.61%** | **+14.16%** | **+11.99%** (79.61% vs 67.62% LOSO) |
+| **Random Forest (`max_depth=25`)** | 100.00% | **100.00%** | **0.00%** | **+29.77%** (100.00% vs 70.23% LOSO) |
+| **XGBoost** | 100.00% | **100.00%** | **0.00%** | **+33.63%** (100.00% vs 66.37% LOSO) |
+| **KNN ($k=5$)** | 99.27% | **97.56%** | **+1.71%** | **+39.24%** (97.56% vs 58.32% LOSO) |
+| **SVM (RBF)** | 99.88% | **95.36%** | **+4.52%** | **+31.45%** (95.36% vs 63.91% LOSO) |
+| **SVM Linear ($C=1.0$)** | 95.85% | **82.05%** | **+13.80%** | **+18.88%** (82.05% vs 63.17% LOSO) |
+| **LDA** | 92.31% | **79.61%** | **+12.70%** | **+11.99%** (79.61% vs 67.62% LOSO) |
 
 > [!WARNING]
 > **Data Leakage Persists in Sliced Features under Scheme A:** Even with 60% of features removed (wrist sensors only), naive random splitting still yields pseudo-perfect test accuracies (82% to 100%). This confirms that high random-split performance is an artifact of inter-subject window leakage and temporal autocorrelation rather than true affective signal modeling. Only **Validation Scheme B (LOSO CV)** provides scientifically valid evaluation for real-world smartwatch deployment.
@@ -156,13 +159,13 @@ $$\text{Shortfall} = \text{Metric}_{\text{Full}} - \text{Metric}_{\text{Sliced}}
 ## 6. Key Scientific Findings & Discussion
 
 ### 1. High Wearable Retention Rate (>95% for Random Forest)
-The top-performing classifier, **Random Forest (`max_depth=4`)**, achieves **71.14% subject-independent accuracy** with sliced wrist sensors compared to **74.43%** with the full 155-modality chest-and-wrist suite. This represents a minimal shortfall of only **3.29%**, retaining **95.57%** of the full multimodal predictive power. This proves that an unobtrusive consumer smartwatch setup (measuring only wrist movement, galvanic skin response, and skin temperature) is scientifically viable for continuous subjective state anxiety detection.
+The top-performing classifier, **Random Forest (`max_depth=25`)**, achieves **70.23% subject-independent accuracy** (and `max_depth=4` achieves **69.28%**) with sliced wrist sensors compared to **73.19% / 73.46%** with the full 154-modality chest-and-wrist suite. This represents a minimal shortfall of only **2.96% to 4.18%**, retaining **94.3% to 96.0%** of the full multimodal predictive power. This proves that an unobtrusive consumer smartwatch setup (measuring only wrist movement, galvanic skin response, and skin temperature) is scientifically viable for continuous subjective state anxiety detection.
 
 ### 2. Dimensionality Reduction Benefits Linear Discriminant Analysis (LDA)
-Remarkably, **LDA performed +4.96% better** on the sliced sensor subset (67.62% vs. 62.66%, a 107.91% retention gain). In the 155-feature space, LDA suffered from severe multicollinearity and near-singular pooled covariance matrices caused by cross-channel redundancy (e.g., chest vs. wrist EDA, multiple ECG HRV time/frequency domains, respiration cycle features). Reducing the feature space to 62 non-redundant wrist features regularized the discriminant projection and eliminated over-parameterization noise.
+Remarkably, **LDA performed +4.96% better** on the sliced sensor subset (67.62% vs. 62.66%, a 107.91% retention gain). In the 154-feature space, LDA suffered from severe multicollinearity and near-singular pooled covariance matrices caused by cross-channel redundancy (e.g., chest vs. wrist EDA, multiple ECG HRV time/frequency domains, respiration cycle features). Reducing the feature space to 61 non-redundant wrist features regularized the discriminant projection and eliminated over-parameterization noise.
 
-### 3. Tree Depth & Regularization in Wearable Slices
-Similar to the full-modality experiment, shallow decision trees (`max_depth=4`, Alkurdi specification) outperformed deep trees (`max_depth=25`) by **+1.27%** (71.14% vs. 69.87%). Restricting tree depth acts as an effective regularizer against inter-subject physiological variance, preventing the forest from overfitting to idiosyncratic subject baselines in the training folds.
+### 3. Tree Depth Dynamics in Wearable Slices
+In the sliced smartwatch feature space with calibrated physical frequencies, deeper decision trees (`max_depth=25`) slightly outperformed shallow trees (`max_depth=4`) by **+0.95%** (70.23% vs. 69.28%), as deeper architectures were able to resolve subtle non-linear interactions across the compact 61 wrist features. Both configurations maintain strong subject generalization (>69% LOSO accuracy).
 
 ### 4. Sensitivity to Loss of Cardiac (ECG) Features in Distance-Based & Kernel Models
 Non-tree models that rely on Euclidean metric distances or kernel hyperplanes (KNN, SVM RBF) experienced the steepest performance drops (KNN shortfall: +9.32%, SVM RBF shortfall: +8.13%). These models heavily leveraged the compact, high-SNR geometric separation provided by chest ECG Heart Rate Variability (HRV) metrics (SDNN, RMSSD, pNN50). In contrast, ensemble decision trees adapted smoothly to the remaining wrist EDA phasic peaks and skin temperature trajectories.

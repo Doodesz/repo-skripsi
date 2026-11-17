@@ -22,25 +22,25 @@
   "validation_scheme_b": [
     {
       "Model": "Random Forest (max_depth=4)",
-      "Pooled Accuracy": 0.7113553113553114,
-      "Pooled Balanced Acc": 0.7121976063152533,
-      "Pooled Macro F1": 0.7092677253172275,
-      "Class 0 F1 (No Anxiety)": 0.6846318036286019,
-      "Class 1 F1 (Anxiety Inc)": 0.7339036470058532,
-      "Macro-Subject Accuracy": 0.7135789531063875,
-      "Macro-Subject Balanced Acc": 0.7635358892164418,
-      "Macro-Subject Macro F1": 0.7009880461711402
+      "Pooled Accuracy": 0.6927960927960928,
+      "Pooled Balanced Acc": 0.6903361344537815,
+      "Pooled Macro F1": 0.6891914492489205,
+      "Class 0 F1 (No Anxiety)": 0.655719759168035,
+      "Class 1 F1 (Anxiety Inc)": 0.722663139329806,
+      "Macro-Subject Accuracy": 0.6950334435144945,
+      "Macro-Subject Balanced Acc": 0.7404173868383308,
+      "Macro-Subject Macro F1": 0.6790859210267778
     },
     {
       "Model": "Random Forest (max_depth=25)",
-      "Pooled Accuracy": 0.6986568986568986,
-      "Pooled Balanced Acc": 0.6962312197606315,
-      "Pooled Macro F1": 0.6950884993558111,
-      "Class 0 F1 (No Anxiety)": 0.6621029572836802,
-      "Class 1 F1 (Anxiety Inc)": 0.7280740414279419,
-      "Macro-Subject Accuracy": 0.7010599788355555,
-      "Macro-Subject Balanced Acc": 0.7419136568112988,
-      "Macro-Subject Macro F1": 0.6860570030810964
+      "Pooled Accuracy": 0.7023199023199023,
+      "Pooled Balanced Acc": 0.7014514896867838,
+      "Pooled Macro F1": 0.6995098604887526,
+      "Class 0 F1 (No Anxiety)": 0.6704514733711814,
+      "Class 1 F1 (Anxiety Inc)": 0.7285682476063238,
+      "Macro-Subject Accuracy": 0.7041447202840048,
+      "Macro-Subject Balanced Acc": 0.7441898681606792,
+      "Macro-Subject Macro F1": 0.6894839487032433
     },
     {
       "Model": "XGBoost",

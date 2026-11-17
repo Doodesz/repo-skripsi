@@ -1,312 +1,276 @@
 {
   "validation_scheme_a": {
-    "XGBoost": {
+    "LDA": {
+      "accuracy": 0.9402,
+      "confusion_matrix": [
+        [
+          209,
+          20,
+          3
+        ],
+        [
+          14,
+          190,
+          3
+        ],
+        [
+          5,
+          4,
+          371
+        ]
+      ],
+      "precision_0": 0.92,
+      "recall_0": 0.9,
+      "f1_0": 0.91,
+      "precision_1": 0.89,
+      "recall_1": 0.92,
+      "f1_1": 0.9,
+      "precision_2": 0.98,
+      "recall_2": 0.98,
+      "f1_2": 0.98
+    },
+    "Random Forest": {
       "accuracy": 1.0,
-      "balanced_accuracy": 1.0,
-      "macro_f1": 1.0,
-      "class_0_f1": 1.0,
-      "class_1_f1": 1.0,
-      "class_2_f1": 1.0,
-      "train_time": 3.83
+      "confusion_matrix": [
+        [
+          232,
+          0,
+          0
+        ],
+        [
+          0,
+          207,
+          0
+        ],
+        [
+          0,
+          0,
+          380
+        ]
+      ],
+      "precision_0": 1.0,
+      "recall_0": 1.0,
+      "f1_0": 1.0,
+      "precision_1": 1.0,
+      "recall_1": 1.0,
+      "f1_1": 1.0,
+      "precision_2": 1.0,
+      "recall_2": 1.0,
+      "f1_2": 1.0
     },
-    "Random Forest (max_depth=25, updated)": {
-      "accuracy": 1.0,
-      "balanced_accuracy": 1.0,
-      "macro_f1": 1.0,
-      "class_0_f1": 1.0,
-      "class_1_f1": 1.0,
-      "class_2_f1": 1.0,
-      "train_time": 2.65
-    },
-    "Random Forest (max_depth=4, Alkurdi)": {
-      "accuracy": 0.928,
-      "balanced_accuracy": 0.9114,
-      "macro_f1": 0.9142,
-      "class_0_f1": 0.9002,
-      "class_1_f1": 0.8655,
-      "class_2_f1": 0.9769,
-      "train_time": 1.41
-    },
-    "SVM (RBF)": {
-      "accuracy": 0.9951,
-      "balanced_accuracy": 0.9939,
-      "macro_f1": 0.9939,
-      "class_0_f1": 0.9909,
-      "class_1_f1": 0.9908,
-      "class_2_f1": 1.0,
-      "train_time": 0.34
-    },
-    "KNN (k=5)": {
+    "SVM Linear": {
       "accuracy": 0.9939,
-      "balanced_accuracy": 0.9937,
-      "macro_f1": 0.993,
-      "class_0_f1": 0.9931,
-      "class_1_f1": 0.9886,
-      "class_2_f1": 0.9974,
-      "train_time": 0.26
+      "confusion_matrix": [
+        [
+          230,
+          2,
+          0
+        ],
+        [
+          1,
+          204,
+          2
+        ],
+        [
+          0,
+          0,
+          380
+        ]
+      ],
+      "precision_0": 1.0,
+      "recall_0": 0.99,
+      "f1_0": 0.99,
+      "precision_1": 0.99,
+      "recall_1": 0.99,
+      "f1_1": 0.99,
+      "precision_2": 0.99,
+      "recall_2": 1.0,
+      "f1_2": 1.0
     },
-    "SVM Linear (C=1.0)": {
-      "accuracy": 0.9927,
-      "balanced_accuracy": 0.9909,
-      "macro_f1": 0.9912,
-      "class_0_f1": 0.9887,
-      "class_1_f1": 0.9861,
-      "class_2_f1": 0.9987,
-      "train_time": 0.19
+    "SVM": {
+      "accuracy": 0.9988,
+      "confusion_matrix": [
+        [
+          231,
+          1,
+          0
+        ],
+        [
+          0,
+          207,
+          0
+        ],
+        [
+          0,
+          0,
+          380
+        ]
+      ],
+      "precision_0": 1.0,
+      "recall_0": 1.0,
+      "f1_0": 1.0,
+      "precision_1": 1.0,
+      "recall_1": 1.0,
+      "f1_1": 1.0,
+      "precision_2": 1.0,
+      "recall_2": 1.0,
+      "f1_2": 1.0
     },
-    "SVM Linear (C=0.9)": {
-      "accuracy": 0.9927,
-      "balanced_accuracy": 0.9909,
-      "macro_f1": 0.9912,
-      "class_0_f1": 0.9887,
-      "class_1_f1": 0.9861,
-      "class_2_f1": 0.9987,
-      "train_time": 0.19
-    },
-    "LDA": {
-      "accuracy": 0.9451,
-      "balanced_accuracy": 0.9346,
-      "macro_f1": 0.9341,
-      "class_0_f1": 0.9099,
-      "class_1_f1": 0.9028,
-      "class_2_f1": 0.9895,
-      "train_time": 0.1
-    }
-  },
-  "validation_scheme_b": {
     "XGBoost": {
-      "pooled_accuracy": 0.5558,
-      "pooled_balanced_accuracy": 0.4931,
-      "pooled_macro_f1": 0.4942,
-      "class_0_f1": 0.3777,
-      "class_1_f1": 0.3098,
-      "class_2_f1": 0.7951,
-      "macro_subject_accuracy": 0.5548,
-      "macro_subject_balanced_accuracy": 0.5778,
-      "macro_subject_macro_f1": 0.4405,
-      "eval_time": 33.96
+      "accuracy": 0.9988,
+      "confusion_matrix": [
+        [
+          231,
+          1,
+          0
+        ],
+        [
+          0,
+          207,
+          0
+        ],
+        [
+          0,
+          0,
+          380
+        ]
+      ],
+      "precision_0": 1.0,
+      "recall_0": 1.0,
+      "f1_0": 1.0,
+      "precision_1": 1.0,
+      "recall_1": 1.0,
+      "f1_1": 1.0,
+      "precision_2": 1.0,
+      "recall_2": 1.0,
+      "f1_2": 1.0
     },
-    "Random Forest (max_depth=25, updated)": {
-      "pooled_accuracy": 0.5321,
-      "pooled_balanced_accuracy": 0.4578,
-      "pooled_macro_f1": 0.4538,
-      "class_0_f1": 0.3748,
-      "class_1_f1": 0.1932,
-      "class_2_f1": 0.7935,
-      "macro_subject_accuracy": 0.5307,
-      "macro_subject_balanced_accuracy": 0.5644,
-      "macro_subject_macro_f1": 0.4289,
-      "eval_time": 32.66
-    },
-    "Random Forest (max_depth=4, Alkurdi)": {
-      "pooled_accuracy": 0.5294,
-      "pooled_balanced_accuracy": 0.4543,
-      "pooled_macro_f1": 0.451,
-      "class_0_f1": 0.3699,
-      "class_1_f1": 0.1908,
-      "class_2_f1": 0.7922,
-      "macro_subject_accuracy": 0.528,
-      "macro_subject_balanced_accuracy": 0.5561,
-      "macro_subject_macro_f1": 0.4177,
-      "eval_time": 18.96
-    },
-    "SVM (RBF)": {
-      "pooled_accuracy": 0.5722,
-      "pooled_balanced_accuracy": 0.5027,
-      "pooled_macro_f1": 0.4976,
-      "class_0_f1": 0.4352,
-      "class_1_f1": 0.2612,
-      "class_2_f1": 0.7965,
-      "macro_subject_accuracy": 0.5707,
-      "macro_subject_balanced_accuracy": 0.5772,
-      "macro_subject_macro_f1": 0.4341,
-      "eval_time": 5.04
-    },
-    "KNN (k=5)": {
-      "pooled_accuracy": 0.5106,
-      "pooled_balanced_accuracy": 0.4585,
-      "pooled_macro_f1": 0.4555,
-      "class_0_f1": 0.399,
-      "class_1_f1": 0.2214,
-      "class_2_f1": 0.7462,
-      "macro_subject_accuracy": 0.5079,
-      "macro_subject_balanced_accuracy": 0.5232,
-      "macro_subject_macro_f1": 0.4071,
-      "eval_time": 1.12
-    },
-    "SVM Linear (C=1.0)": {
-      "pooled_accuracy": 0.5639,
-      "pooled_balanced_accuracy": 0.5101,
-      "pooled_macro_f1": 0.5024,
-      "class_0_f1": 0.4558,
-      "class_1_f1": 0.2672,
-      "class_2_f1": 0.7841,
-      "macro_subject_accuracy": 0.5653,
-      "macro_subject_balanced_accuracy": 0.5603,
-      "macro_subject_macro_f1": 0.4332,
-      "eval_time": 3.01
-    },
-    "SVM Linear (C=0.9)": {
-      "pooled_accuracy": 0.5634,
-      "pooled_balanced_accuracy": 0.5098,
-      "pooled_macro_f1": 0.5015,
-      "class_0_f1": 0.4579,
-      "class_1_f1": 0.2638,
-      "class_2_f1": 0.7827,
-      "macro_subject_accuracy": 0.5648,
-      "macro_subject_balanced_accuracy": 0.5608,
-      "macro_subject_macro_f1": 0.4342,
-      "eval_time": 2.73
-    },
-    "LDA": {
-      "pooled_accuracy": 0.5556,
-      "pooled_balanced_accuracy": 0.5128,
-      "pooled_macro_f1": 0.513,
-      "class_0_f1": 0.3367,
-      "class_1_f1": 0.4319,
-      "class_2_f1": 0.7704,
-      "macro_subject_accuracy": 0.5528,
-      "macro_subject_balanced_accuracy": 0.5692,
-      "macro_subject_macro_f1": 0.4544,
-      "eval_time": 1.73
+    "KNN": {
+      "accuracy": 0.9927,
+      "confusion_matrix": [
+        [
+          227,
+          3,
+          2
+        ],
+        [
+          1,
+          206,
+          0
+        ],
+        [
+          0,
+          0,
+          380
+        ]
+      ],
+      "precision_0": 1.0,
+      "recall_0": 0.98,
+      "f1_0": 0.99,
+      "precision_1": 0.99,
+      "recall_1": 1.0,
+      "f1_1": 0.99,
+      "precision_2": 0.99,
+      "recall_2": 1.0,
+      "f1_2": 1.0
     }
   },
-  "confusion_matrices": {
-    "XGBoost": [
-      [
-        433,
-        510,
-        167
-      ],
-      [
-        524,
-        320,
-        182
-      ],
-      [
-        226,
-        210,
-        1523
-      ]
-    ],
-    "Random Forest (max_depth=25, updated)": [
-      [
-        452,
-        533,
-        125
-      ],
-      [
-        579,
-        182,
-        265
-      ],
-      [
-        271,
-        143,
-        1545
-      ]
-    ],
-    "Random Forest (max_depth=4, Alkurdi)": [
-      [
-        440,
-        531,
-        139
-      ],
-      [
-        585,
-        182,
-        259
-      ],
-      [
-        244,
-        169,
-        1546
-      ]
-    ],
-    "SVM (RBF)": [
-      [
-        514,
-        412,
-        184
-      ],
-      [
-        528,
-        240,
-        258
-      ],
-      [
-        210,
-        160,
-        1589
-      ]
-    ],
-    "KNN (k=5)": [
-      [
-        542,
-        409,
-        159
-      ],
-      [
-        683,
-        208,
-        135
-      ],
-      [
-        382,
-        236,
-        1341
-      ]
-    ],
-    "SVM Linear (C=1.0)": [
-      [
-        621,
-        375,
-        114
-      ],
-      [
-        611,
-        235,
-        180
-      ],
-      [
-        383,
-        123,
-        1453
-      ]
-    ],
-    "SVM Linear (C=0.9)": [
-      [
-        626,
-        370,
-        114
-      ],
-      [
-        613,
-        231,
-        182
-      ],
-      [
-        385,
-        124,
-        1450
-      ]
-    ],
-    "LDA": [
-      [
-        386,
-        514,
-        210
-      ],
-      [
-        471,
-        488,
-        67
-      ],
-      [
-        326,
-        232,
-        1401
-      ]
-    ]
-  }
+  "validation_scheme_b": [
+    {
+      "Model": "Random Forest (max_depth=4)",
+      "Pooled Accuracy": 0.5429,
+      "Pooled Balanced Acc": 0.4684,
+      "Pooled Macro F1": 0.463,
+      "Class 0 F1 (No Anxiety)": 0.4017,
+      "Class 1 (Potential)": 0.1955,
+      "Class 2 F1 (Anxiety Inc)": 0.7918,
+      "Macro-Subject Accuracy": 0.5411,
+      "Macro-Subject Balanced Acc": 0.5686,
+      "Macro-Subject Macro F1": 0.4003
+    },
+    {
+      "Model": "Random Forest (max_depth=25)",
+      "Pooled Accuracy": 0.5382,
+      "Pooled Balanced Acc": 0.4571,
+      "Pooled Macro F1": 0.449,
+      "Class 0 F1 (No Anxiety)": 0.3571,
+      "Class 1 (Potential)": 0.1952,
+      "Class 2 F1 (Anxiety Inc)": 0.7947,
+      "Macro-Subject Accuracy": 0.536,
+      "Macro-Subject Balanced Acc": 0.5625,
+      "Macro-Subject Macro F1": 0.4204
+    },
+    {
+      "Model": "XGBoost",
+      "Pooled Accuracy": 0.5558,
+      "Pooled Balanced Acc": 0.4931,
+      "Pooled Macro F1": 0.4942,
+      "Class 0 F1 (No Anxiety)": 0.3777,
+      "Class 1 (Potential)": 0.3098,
+      "Class 2 F1 (Anxiety Inc)": 0.7951,
+      "Macro-Subject Accuracy": 0.5548,
+      "Macro-Subject Balanced Acc": 0.5778,
+      "Macro-Subject Macro F1": 0.4405
+    },
+    {
+      "Model": "SVM (RBF)",
+      "Pooled Accuracy": 0.5724,
+      "Pooled Balanced Acc": 0.503,
+      "Pooled Macro F1": 0.498,
+      "Class 0 F1 (No Anxiety)": 0.4354,
+      "Class 1 (Potential)": 0.2621,
+      "Class 2 F1 (Anxiety Inc)": 0.7965,
+      "Macro-Subject Accuracy": 0.5709,
+      "Macro-Subject Balanced Acc": 0.5774,
+      "Macro-Subject Macro F1": 0.4342
+    },
+    {
+      "Model": "KNN (k=5)",
+      "Pooled Accuracy": 0.5106,
+      "Pooled Balanced Acc": 0.4585,
+      "Pooled Macro F1": 0.4555,
+      "Class 0 F1 (No Anxiety)": 0.399,
+      "Class 1 (Potential)": 0.2214,
+      "Class 2 F1 (Anxiety Inc)": 0.7462,
+      "Macro-Subject Accuracy": 0.5079,
+      "Macro-Subject Balanced Acc": 0.5232,
+      "Macro-Subject Macro F1": 0.4071
+    },
+    {
+      "Model": "SVM Linear (C=1.0)",
+      "Pooled Accuracy": 0.5639,
+      "Pooled Balanced Acc": 0.5101,
+      "Pooled Macro F1": 0.5024,
+      "Class 0 F1 (No Anxiety)": 0.4558,
+      "Class 1 (Potential)": 0.2672,
+      "Class 2 F1 (Anxiety Inc)": 0.7841,
+      "Macro-Subject Accuracy": 0.5653,
+      "Macro-Subject Balanced Acc": 0.5603,
+      "Macro-Subject Macro F1": 0.4332
+    },
+    {
+      "Model": "SVM Linear (C=0.9)",
+      "Pooled Accuracy": 0.5636,
+      "Pooled Balanced Acc": 0.5101,
+      "Pooled Macro F1": 0.5017,
+      "Class 0 F1 (No Anxiety)": 0.4585,
+      "Class 1 (Potential)": 0.264,
+      "Class 2 F1 (Anxiety Inc)": 0.7827,
+      "Macro-Subject Accuracy": 0.565,
+      "Macro-Subject Balanced Acc": 0.561,
+      "Macro-Subject Macro F1": 0.4343
+    },
+    {
+      "Model": "LDA",
+      "Pooled Accuracy": 0.5556,
+      "Pooled Balanced Acc": 0.5128,
+      "Pooled Macro F1": 0.513,
+      "Class 0 F1 (No Anxiety)": 0.3367,
+      "Class 1 (Potential)": 0.4319,
+      "Class 2 F1 (Anxiety Inc)": 0.7704,
+      "Macro-Subject Accuracy": 0.5528,
+      "Macro-Subject Balanced Acc": 0.5692,
+      "Macro-Subject Macro F1": 0.4544
+    }
+  ]
 }

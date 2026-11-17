@@ -32,6 +32,10 @@
 | Reverse-scoring formula | `reversed = 5.0 - raw` (so 1↔4, 2↔3) |
 | Scoring convention | After reverse-scoring, higher values = higher anxiety |
 
+> [!WARNING]
+> **Methodological Bug in 5th Try Pipeline — Indexing Transposition Bug:**
+> Although the theoretical instrument specifies 6 items, the actual implementation in [`Scripts/5th try/stai_6s_reference_models_stdized.ipynb`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Scripts/5th%20try/stai_6s_reference_models_stdized.ipynb) contained a matrix indexing transposition bug (`responses = [row[index] for row in stai_rows]`). Because WESAD's `# STAI` entries are formatted with **5 rows (conditions) and 6 columns (items)**, this loop parsed only 5 items instead of 6, and transposed item scores across conditions. This parsing flaw corrupted condition ratings (e.g., TSST ratings were misattributed), which falsely caused **8 out of 15 participants** to have zero anxiety windows ($\Delta < 0.2$), creating severe artificial class imbalance (82.1% / 17.9%). This bug was recognized and rectified in the 6th try pipeline.
+
 ### 2.2 Labeling Logic
 
 | Parameter          | Value                                                                    |
@@ -208,10 +212,10 @@ Raw Features (154D) ──> [Stage 1: StandardScaler] ──> [Stage 2: MinMaxSc
 
 | Model | File Path |
 |---|---|
-| Random Forest | `Models/stai_6s_standardized/stai_baseline_relative_random_forest_model.joblib` |
-| SVM | `Models/stai_6s_standardized/stai_baseline_relative_svm_model.joblib` |
-| XGBoost | `Models/stai_6s_standardized/stai_baseline_relative_xgboost_model.joblib` |
-| KNN | `Models/stai_6s_standardized/stai_baseline_relative_knn_model.joblib` |
+| Random Forest | [`Models/5th try/stai_baseline_relative_random_forest_model.joblib`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Models/5th%20try/stai_baseline_relative_random_forest_model.joblib) *(legacy notebook path: `Models/stai_6s_standardized/`)* |
+| SVM | [`Models/5th try/stai_baseline_relative_svm_model.joblib`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Models/5th%20try/stai_baseline_relative_svm_model.joblib) |
+| XGBoost | [`Models/5th try/stai_baseline_relative_xgboost_model.joblib`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Models/5th%20try/stai_baseline_relative_xgboost_model.joblib) |
+| KNN | [`Models/5th try/stai_baseline_relative_knn_model.joblib`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Models/5th%20try/stai_baseline_relative_knn_model.joblib) |
 
 ---
 
@@ -519,9 +523,9 @@ Confusion Matrix:
 
 | Output | Path |
 |---|---|
-| Preprocessed feature pickles | `Data/Preprocessed n STAI-labeled 6s std-norm-ed/S{id}_stai_60s_shift6s.pkl` |
-| Trained model files | `Models/stai_6s_standardized/stai_baseline_relative_{model}_model.joblib` |
-| Source notebook | `Scripts/5th try/stai_6s_reference_models_stdized.ipynb` |
+| Preprocessed feature pickles | [`Data/5th try/S{id}_stai_60s_shift6s.pkl`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Data/5th%20try/) *(legacy notebook path: `Data/Preprocessed n STAI-labeled 6s std-norm-ed/`)* |
+| Trained model files | [`Models/5th try/stai_baseline_relative_{model}_model.joblib`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Models/5th%20try/) *(legacy notebook path: `Models/stai_6s_standardized/`)* |
+| Source notebook | [`Scripts/5th try/stai_6s_reference_models_stdized.ipynb`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Scripts/5th%20try/stai_6s_reference_models_stdized.ipynb) |
 
 ---
 
