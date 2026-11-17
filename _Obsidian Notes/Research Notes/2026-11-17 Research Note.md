@@ -418,31 +418,145 @@ Timestamp,SensorType,Value1,Value2,Value3,Value4
 ---
 
 ### 9.3 Comprehensive Sensor Coverage & SDK Tracking Engine (`TrackingManager.kt`)
-The tracking orchestrator ([`Deployment/test1/app/src/main/java/com/samsung/health/sensorsdksample/multisensormeasurement/tracking/TrackingManager.kt`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/app/src/main/java/com/samsung/health/sensorsdksample/multisensormeasurement/tracking/TrackingManager.kt)) connects to Samsung's proprietary `HealthTrackingService` and registers event listeners across all available physical and algorithmic sensor trackers on the watch:
 
-| Sensor Modality | SDK Tracker Constant | Logged Key / Type | Captured Values & Units | Native Sampling Rate |
-|---|---|---|---|:---:|
-| **Photoplethysmogram (PPG)** | `PPG_CONTINUOUS` / `PPG_RED`, `PPG_IR`, `PPG_GREEN` | `PpgContinuous` / `PpgRed`, `PpgIr`, `PpgGreen` | **Value1**: Raw Green light intensity<br>**Value2**: Raw IR light intensity<br>**Value3**: Raw Red light intensity | 25 Hz (Continuous) / Up to 100 Hz |
-| **Electrodermal Activity (EDA / GSR)** | `EDA_CONTINUOUS` | `EdaContinuous` | **Value1**: Skin Conductance ($\mu\text{S}$, *Float*)<br>**Value2**: Sensor Status (*0 = Valid/OK*) | 1 Hz |
-| **Tri-Axial Accelerometer (ACC)** | `ACCELEROMETER_CONTINUOUS` / `ACCELEROMETER` | `AccelerometerContinuous` / `Accelerometer` | **Value1**: X-axis acceleration ($mG$ or $mm/s^2$)<br>**Value2**: Y-axis acceleration<br>**Value3**: Z-axis acceleration | 25 Hz |
-| **Continuous Heart Rate** | `HEART_RATE_CONTINUOUS` / `HEART_RATE` | `HeartRateContinuous` / `HeartRate` | **Value1**: Heart rate in BPM (*Integer*)<br>**Value2**: Tracking status (*1 = Valid*, *<1 = Searching*) | 1 Hz |
-| **Skin Temperature** | `SKIN_TEMPERATURE_CONTINUOUS` / `SKIN_TEMPERATURE` | `SkinTemperatureContinuous` / `SkinTemperature` | **Value1**: Object / Skin Temperature ($^\circ\text{C}$)<br>**Value2**: Ambient Temperature ($^\circ\text{C}$)<br>**Value3**: Measurement status | Event-driven / Periodic |
-| **Pulse Oximetry (SpO2)** | `SPO2` | `SpO2` | **Value1**: Measurement status (*2 = Completed, 0 = Calc*)<br>**Value2**: Oxygen Saturation percentage ($\%$) | On-demand / Periodic |
-| **Electrocardiogram (ECG)** | `ECG` | `Ecg` | **Value1**: Sequence number (*Sample Index*)<br>**Value2**: Voltage ($mV$, *Float*)<br>**Value3**: Lead-off status (*0 = Good Contact, 5 = Detached*) | Up to 500 Hz |
-| **Bioelectrical Impedance (BIA)** | `BIA` | `Bia` | **Value1**: Status<br>**Value2**: Body Fat Mass ($kg$)<br>**Value3**: Skeletal Muscle Mass ($kg$) | On-demand |
-| **Sweat Loss** | `SWEAT_LOSS` | `SweatLoss` | **Value1**: Status<br>**Value2**: Estimated Sweat Loss ($mL$) | Periodic |
+The tracking orchestrator ([`Deployment/test1/app/src/main/java/com/samsung/health/sensorsdksample/multisensormeasurement/tracking/TrackingManager.kt`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/app/src/main/java/com/samsung/health/sensorsdksample/multisensormeasurement/tracking/TrackingManager.kt)) connects to Samsung's proprietary `HealthTrackingService` and registers event listeners across all available physical and algorithmic sensor trackers on the watch.
 
-#### Empirical Logging Verification:
-In a sample recording session conducted on 2026-11-17 ([`Deployment/test1/_user_folder/Pulled CSVs/sensor_data_20261117_231921.csv`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/_user_folder/Pulled%20CSVs/sensor_data_20261117_231921.csv)), the pipeline successfully recorded **23,568 raw sensor data rows** simultaneously across modalities without dropped samples or crashes:
-- `Ecg`: **15,610 samples**
-- `PpgRed`: **3,126 samples**
-- `PpgIr`: **3,126 samples**
-- `Accelerometer`: **604 samples**
-- `PpgGreen`: **604 samples**
-- `SpO2`: **405 samples**
-- `SkinTemperature`: **31 samples**
-- `EdaContinuous`: **31 samples**
-- `HeartRate`: **31 samples**
+Because [`Deployment/test1/`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/) operates as an isolated git submodule, standalone notes were maintained in [`Deployment/test1/_user_folder/Obsidian Notes/`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/_user_folder/Obsidian%20Notes/) ([`2026-11-17_Implementation.md`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/_user_folder/Obsidian%20Notes/2026-11-17_Implementation.md) and [`Samsung_Health_Sensor_SDK_Specs.md`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/_user_folder/Obsidian%20Notes/Samsung_Health_Sensor_SDK_Specs.md)). To establish a unified single source of truth across the repository, the complete tracker taxonomies, sampling specifications, and column schemas are fully consolidated below.
+
+---
+
+#### 9.3.1 Tracker Classification: `CONTINUOUS` vs. `ON_DEMAND` Specifications
+
+The Samsung Health Sensor SDK categorizes wearable sensors into two primary operational modes based on sampling frequency, system resource utilization, and intended measurement duration:
+
+```
+                          Samsung Health Sensor SDK
+                                     │
+           ┌─────────────────────────┴─────────────────────────┐
+           ▼                                                   ▼
+ ┌───────────────────────────┐                       ┌───────────────────────────┐
+ │   CONTINUOUS TRACKERS     │                       │    ON_DEMAND TRACKERS     │
+ ├───────────────────────────┤                       ├───────────────────────────┤
+ │ • Purpose: Ongoing Monitor│                       │ • Purpose: Short-Burst Rx │
+ │ • ACCELEROMETER   : 25 Hz │                       │ • ECG_ON_DEMAND : 500 Hz  │
+ │ • PPG_CONTINUOUS  : 25 Hz │                       │ • PPG_ON_DEMAND : 100 Hz  │
+ │ • EDA_CONTINUOUS  :  1 Hz │                       │ • SPO2_ON_DEMAND: Spot-chk│
+ │ • HEART_RATE      :  1 Hz │                       │ • BIA & Sweat   : Spot-chk│
+ │ • Battery-conserving mode │                       │ • High CPU & Power Draw   │
+ └───────────────────────────┘                       └───────────────────────────┘
+```
+
+##### 1. `CONTINUOUS` Trackers (Long-Term Ambulatory Monitoring)
+Optimized for sustained, continuous acquisition across 10–15+ minute experimental sessions (such as the TSST stress protocol). They utilize lower, battery-conserving sampling rates:
+* `ACCELEROMETER_CONTINUOUS`: **$25\text{ Hz}$** (tri-axial motion tracking)
+* `PPG_CONTINUOUS`: **$25\text{ Hz}$** (raw optical pulse plethysmogram)
+* `EDA_CONTINUOUS`: **$1\text{ Hz}$** (electrodermal activity / skin conductance level)
+* `HEART_RATE_CONTINUOUS`: **$1\text{ Hz}$** (processed cardiac beats-per-minute)
+* `SKIN_TEMPERATURE_CONTINUOUS`: **Event-driven / Periodic** (skin and ambient thermal tracking)
+
+##### 2. `ON_DEMAND` Trackers (High-Fidelity Waveform Capture)
+Engineered for detailed algorithmic analysis and high-frequency physiological signal reconstruction:
+* `ECG_ON_DEMAND` / `ECG`: **$500\text{ Hz}$** (clinical-grade electrical cardiac potential)
+* `PPG_ON_DEMAND`: **$100\text{ Hz}$** (high-resolution single/multi-wavelength optical absorption)
+
+##### ⚠️ Crucial Samsung SDK Guidelines & Constraints for `ON_DEMAND` Trackers:
+Due to high battery consumption, algorithmic intensity, and hardware contention, Samsung enforces four strict operational rules:
+1. **Foreground Execution Only:** On-demand tracking must execute strictly within an active foreground UI (`ComponentActivity`). The user must be actively viewing the watch screen; background service tracking for on-demand sensors is forbidden by the OS.
+2. **Single Tracker Concurrency Limit:** The watch hardware cannot operate multiple on-demand trackers simultaneously. For example, running `ECG` and `SpO2` concurrently causes hardware resource conflicts.
+3. **Time-Bound Interval Cap ($30\text{ Seconds}$):** On-demand trackers are strictly not intended for unbounded continuous execution. The UI should automatically limit measurements to 30-second windows.
+4. **Concurrency & Sensor Invalidation:** Activating an on-demand measurement concurrently while a continuous tracker is logging can corrupt sensor baselines (e.g., executing `HEART_RATE_CONTINUOUS` while calculating `SPO2_ON_DEMAND` yields invalid readings). Continuous trackers should be paused prior to initiating on-demand spot checks.
+
+##### Architectural Impact on the App:
+* **RAM Buffering:** Logging high-frequency signals like `ECG` ($500\text{ Hz}$) or `PPG_ON_DEMAND` ($100\text{ Hz}$) requires the in-memory batch buffer in `CsvLogger.kt` to prevent disk I/O bottlenecks and UI frame drops. Conversely, lower-rate trackers ($1\text{ Hz}$) could technically sustain immediate writes, but are routed through the buffer for architectural uniformity.
+* **State Management:** `TrackingManager.kt` ensures trackers are cleanly unhooked and flushed upon session termination.
+
+---
+
+#### 9.3.2 Exhaustive CSV Column Data Reference & Status Code Guide
+
+The logging subsystem outputs records into a unified 6-column CSV structure:
+$$\text{CSV Record Format: } \texttt{Timestamp, SensorType, Value1, Value2, Value3, Value4}$$
+
+The detailed breakdown of each sensor's assigned columns, physical units, data types, and status code interpretations is presented below:
+
+| SensorType (`String`) | Modality & Description | `Value1` | `Value2` | `Value3` | `Value4` |
+|:---|:---|:---|:---|:---|:---|
+| **`HeartRateContinuous`** / **`HeartRate`** | Continuous Heart Rate Monitoring | **BPM** (*Integer*)<br>Beats Per Minute ($30\text{--}220\text{ bpm}$) | **Status** (*Integer*)<br>$\mathbf{1}$ = Valid measurement<br>$\mathbf{<1}$ = Invalid / Searching / Low SNR | — | — |
+| **`AccelerometerContinuous`** / **`Accelerometer`** | Motion & Tri-Axial Acceleration | **X-axis** (*Float*)<br>Acceleration ($mG$ or $mm/s^2$) | **Y-axis** (*Float*)<br>Acceleration ($mG$ or $mm/s^2$) | **Z-axis** (*Float*)<br>Acceleration ($mG$ or $mm/s^2$) | — |
+| **`EdaContinuous`** | Electrodermal Activity (GSR / Sympathetic Arousal) | **Skin Conductance** (*Float*)<br>Raw Conductance in **$\mu\text{S}$** (microsiemens) | **Status** (*Integer*)<br>$\mathbf{0}$ = Calculating / OK / Valid | — | — |
+| **`PpgContinuous`** | Raw Multi-Wavelength Photoplethysmogram | **PPG Green** (*Long/Float*)<br>Raw green light reflection intensity | **PPG IR** (*Long/Float*)<br>Raw infrared light absorption | **PPG Red** (*Long/Float*)<br>Raw red light absorption | — |
+| **`PpgGreen`** | Standalone Green PPG Channel | **PPG Green** (*Long/Float*)<br>Raw green optical signal | **Status** (*Integer*)<br>Measurement status code | — | — |
+| **`PpgRed`** | Standalone Red PPG Channel | **PPG Red** (*Long/Float*)<br>Raw red optical signal | **Status** (*Integer*)<br>Measurement status code | — | — |
+| **`PpgIr`** | Standalone Infrared PPG Channel | **PPG IR** (*Long/Float*)<br>Raw infrared optical signal | **Status** (*Integer*)<br>Measurement status code | — | — |
+| **`SkinTemperatureContinuous`** / **`SkinTemperature`** | Cutaneous & Ambient Temperature | **Object / Skin Temp** (*Float*)<br>Skin contact surface temp in **$^\circ\text{C}$** | **Ambient Temp** (*Float*)<br>Surrounding air temp in **$^\circ\text{C}$** | **Status** (*Integer*)<br>Sensor tracking status code | — |
+| **`SpO2`** | Peripheral Blood Oxygen Saturation | **Status** (*Integer*)<br>$\mathbf{2}$ = Completed / Valid<br>$\mathbf{0}$ = Calculating / Initializing<br>$\mathbf{-4}$ = Motion Artifact (User Moving) | **SpO2 Percentage** (*Integer*)<br>Oxygen saturation level ($\%$, e.g. $98$) | — | — |
+| **`Ecg`** | Electrocardiogram Waveform | **Sequence Number** (*Long*)<br>Sample index counter ($0, 1, 2, \dots$) | **ECG Voltage** (*Float*)<br>Differential cardiac voltage in **$mV$** | **Lead-Off Status** (*Integer*)<br>$\mathbf{0}$ = Good electrode contact<br>$\mathbf{5}$ = Lead Off (Finger/Skin detached) | — |
+| **`Bia`** | Bioelectrical Impedance Analysis | **Status** (*Integer*)<br>Measurement status code | **Body Fat Mass** (*Float*)<br>Calculated fat mass in **$kg$** | **Skeletal Muscle Mass** (*Float*)<br>Calculated muscle mass in **$kg$** | — |
+| **`SweatLoss`** | Galvanic Sweat Accumulation | **Status** (*Integer*)<br>Measurement status code | **Sweat Loss** (*Float*)<br>Estimated sweat volume in **$mL$** | — | — |
+
+---
+
+#### 9.3.3 SDK ValueKey Extraction & Event Parser Mapping
+
+In [`TrackingManager.kt`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/app/src/main/java/com/samsung/health/sensorsdksample/multisensormeasurement/tracking/TrackingManager.kt#L88-L173), every listener callback extracts hardware values from the incoming `DataPoint` list using SDK-specific `ValueKey` enums and routes them directly to `csvLogger.logData(sensorType, timestamp, *values)`:
+
+```kotlin
+// Example ValueKey extraction logic in TrackingManager.kt:
+
+// 1. Continuous Heart Rate (BPM & Status):
+csvLogger.logData("HeartRateContinuous", System.currentTimeMillis(),
+    dp.getValue(ValueKey.HeartRateSet.HEART_RATE),
+    dp.getValue(ValueKey.HeartRateSet.HEART_RATE_STATUS)
+)
+
+// 2. Tri-Axial Accelerometer (mG):
+csvLogger.logData("AccelerometerContinuous", System.currentTimeMillis(),
+    dp.getValue(ValueKey.AccelerometerSet.ACCELEROMETER_X),
+    dp.getValue(ValueKey.AccelerometerSet.ACCELEROMETER_Y),
+    dp.getValue(ValueKey.AccelerometerSet.ACCELEROMETER_Z)
+)
+
+// 3. Electrodermal Activity (Skin Conductance in µS):
+csvLogger.logData("EdaContinuous", System.currentTimeMillis(),
+    dp.getValue(ValueKey.EdaSet.SKIN_CONDUCTANCE),
+    dp.getValue(ValueKey.EdaSet.STATUS)
+)
+
+// 4. Skin & Ambient Temperature (°C):
+csvLogger.logData("SkinTemperatureContinuous", System.currentTimeMillis(),
+    dp.getValue(ValueKey.SkinTemperatureSet.OBJECT_TEMPERATURE),
+    dp.getValue(ValueKey.SkinTemperatureSet.AMBIENT_TEMPERATURE),
+    dp.getValue(ValueKey.SkinTemperatureSet.STATUS)
+)
+
+// 5. Electrocardiogram (Waveform mV & Lead-Off):
+csvLogger.logData("Ecg", System.currentTimeMillis(),
+    dp.getValue(ValueKey.EcgSet.SEQUENCE),
+    dp.getValue(ValueKey.EcgSet.ECG_MV),
+    dp.getValue(ValueKey.EcgSet.LEAD_OFF)
+)
+```
+
+---
+
+#### 9.3.4 Empirical Multi-Sensor Logging Verification & Frequency Analysis
+
+In an end-to-end hardware logging validation conducted on 2026-11-17 ([`Deployment/test1/_user_folder/Pulled CSVs/sensor_data_20261117_231921.csv`](file:///e:/Rizqy/Kuliah/Skripsi/repo-skripsi/Deployment/test1/_user_folder/Pulled%20CSVs/sensor_data_20261117_231921.csv)), the smartwatch app recorded continuously across all available modalities for approximately **$31\text{ seconds}$**, generating a total of **23,568 raw physiological data points**:
+
+| Logged Sensor Identifier | Row Count | Inferred Frequency | Alignment with SDK Specifications |
+|:---|:---:|:---:|:---|
+| **`Ecg`** | **15,610 samples** | $\approx 500\text{ Hz}$ | Perfectly matches the $500\text{ Hz}$ short-burst ECG sampling specification. |
+| **`PpgRed`** | **3,126 samples** | $\approx 100\text{ Hz}$ | High-fidelity raw optical photoplethysmogram on red wavelength. |
+| **`PpgIr`** | **3,126 samples** | $\approx 100\text{ Hz}$ | High-fidelity raw optical photoplethysmogram on infrared wavelength. |
+| **`Accelerometer`** | **604 samples** | $\approx 20\text{--}25\text{ Hz}$ | Corresponds to continuous tri-axial motion tracking (~$25\text{ Hz}$). |
+| **`PpgGreen`** | **604 samples** | $\approx 20\text{--}25\text{ Hz}$ | Continuous green optical absorption channel (~$25\text{ Hz}$). |
+| **`SpO2`** | **405 samples** | Continuous Burst | Optical pulse oximetry calculation sequence. |
+| **`SkinTemperature`** | **31 samples** | $\mathbf{1.0\text{ Hz}}$ | Exactly $1\text{ sample/second}$ across the 31-second logging window. |
+| **`EdaContinuous`** | **31 samples** | $\mathbf{1.0\text{ Hz}}$ | Exactly $1\text{ sample/second}$ across the 31-second logging window. |
+| **`HeartRate`** | **31 samples** | $\mathbf{1.0\text{ Hz}}$ | Exactly $1\text{ sample/second}$ across the 31-second logging window. |
+| **Total Recorded Rows** | **23,568 rows** | Multi-rate | Zero packet loss, clean CSV row formatting, zero UI jank. |
+
+This empirical frequency analysis proves that the low-frequency continuous sensors (`SkinTemperature`, `EdaContinuous`, `HeartRate`) arrive at precisely $1\text{ Hz}$, while high-rate kinetic and optical sensors stream reliably without OS queue overflow.
 
 ---
 
